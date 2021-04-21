@@ -4,7 +4,7 @@ import authController from '../../controllers/authController';
 import links from '../../config/staticLinks';
 import { BasedRoutes } from './BasedRoutes';
 
-export class AuthRoute extends BasedRoutes {
+export class AuthRoutes extends BasedRoutes {
   constructor(nameOfPath: string) {
     super(nameOfPath);
   }

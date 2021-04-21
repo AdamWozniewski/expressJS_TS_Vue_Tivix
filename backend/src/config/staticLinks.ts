@@ -3,6 +3,7 @@ const links = {
         admin: '/admin',
         auth: '/auth',
         video: '/video',
+        find: '/find',
 
         actions: {
             register: '/register',

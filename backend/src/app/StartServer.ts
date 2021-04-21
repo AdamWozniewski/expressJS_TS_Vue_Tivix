@@ -10,6 +10,7 @@ import cookieParser from 'cookie-parser'
 
 import { IndexRoute } from './../routes/IndexRoute';
 import passportConfig from './../config/passport';
+import admin from './../config/adminCreate'
 
 import dbConfig from './../config/database';
 
@@ -30,6 +31,7 @@ export class StartServer {
         this.startServer();
         this.setRouter();
         this.setDatabaseConnect();
+        admin.adminCreate()
     }
     private async setRouter () {
         this.app.use('/api', await new IndexRoute().getRoutes())
