@@ -1,5 +1,4 @@
 import { createApp } from 'vue'
-import Vuex from 'vuex';
 import store from '@/store/index'
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';

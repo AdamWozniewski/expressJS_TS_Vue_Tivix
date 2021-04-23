@@ -6,11 +6,11 @@
       </div>
     </template>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-      <el-form-item label="Password" prop="pass">
-        <el-input type="password" v-model="ruleForm.pass" autocomplete="off" />
-      </el-form-item>
       <el-form-item prop="email" label="Email">
         <el-input v-model="ruleForm.email" />
+      </el-form-item>
+      <el-form-item label="Password" prop="password">
+        <el-input type="password" v-model="ruleForm.password" autocomplete="off" />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="validForm">Submit</el-button>
@@ -30,13 +30,21 @@
 
 <script>
 // import { defineComponent } from 'vue'
-import AuthService from "@/services/AuthService";
-import RuleMixin from "@/mixins/RuleMixin";
+import AuthService from '@/services/AuthService';
+import RuleMixin from '@/mixins/RuleMixin.vue';
+import { mapMutations } from 'vuex';
 
 export default {
+  // data () {
+  //   return {
+  //     $message: {},
+  //     $refs: {},
+  //   } as Login
+  // },
   name: 'Login',
   mixins: [ RuleMixin ],
   methods: {
+    ...mapMutations('user', ['SET_USER']),
     async validForm() {
       await this.$refs['ruleForm'].validate(async (valid) => {
         if (valid) this.submit()
@@ -45,9 +53,9 @@ export default {
     },
     async submit () {
         try {
-          const { email, pass } = this.ruleForm
-          const data = await AuthService.login({ email, pass })
-          console.log(data)
+          const { email, password } = this.ruleForm
+          const { token, refreshToken } = await AuthService.login({ email, password })
+          token && refreshToken && this.$router.push({ name: 'Home' })
         } catch ({ message }) {
           this.$message({
             type: 'error',

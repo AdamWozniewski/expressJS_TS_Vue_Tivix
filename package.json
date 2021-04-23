@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend/vue_version && npm run serve",
+    "install": "echo 123",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "AdamW",

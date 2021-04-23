@@ -3,9 +3,9 @@ import Home from '@/views/dashboard/Home.vue';
 import Login from '@/views/auth/Login.vue';
 import CreateUser from '@/views/auth/CreateUser.vue';
 import WildCard from '@/views/WildCard.vue';
-import Admin from "@/views/dashboard/Admin.vue";
-import Favourities from "@/views/dashboard/Favourities.vue";
-import VideoSearch from "@/views/dashboard/VideoSearch.vue";
+import Admin from '@/views/dashboard/Admin.vue';
+import Favourities from '@/views/dashboard/Favourities.vue';
+import VideoSearch from '@/views/dashboard/VideoSearch.vue';
 
 const routes: any = [
     {
@@ -18,6 +18,9 @@ const routes: any = [
         path: '/home',
         name: 'Home',
         component: Home,
+        redirect: {
+          name: 'VideoSearch'
+        },
         children: [{
             name: 'VideoSearch',
             path: 'video-search',

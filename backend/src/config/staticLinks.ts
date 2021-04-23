@@ -10,9 +10,10 @@ const links = {
             refresh: '/refresh',
             login: '/login',
             logout: '/logout',
+            userInformation: '/user-information',
             save: '/save',
-            getAll: '/getAll',
-            deleteVideo: '/deleteVideo'
+            getVideo: '/get-video',
+            deleteVideo: '/deleteVideo',
         },
     }
 };

@@ -1,51 +1,39 @@
-import jwt from 'jsonwebtoken'
 import { Response } from 'express';
 import User from './../models/User';
+import jwtTokenDecode from '../utilities/jwtTokenDecode';
 
 export default {
     saveVideo: async (req: any, res: Response): Promise<any> => {
-        const decoded: any = jwt.verify(
-            req.headers.authorization.split(' ')[1],
-            process.env.JWT_SECRET
-        );
-        const { id: _id } = decoded
+        const { id: _id } = jwtTokenDecode(req);
         try {
             await User.updateOne(
                 { _id },
-                { $push: { videos: req.body.imdbID }}
+                { $push: { videos: req.params.imdbID }}
             )
             return res.send({ success: true });
         } catch (error) {
-            throw error
+            throw error;
         }
     },
     deleteVideo: async (req: any, res: Response): Promise<any> => {
-        const decoded: any = jwt.verify(
-            req.headers.authorization.split(' ')[1],
-            process.env.JWT_SECRET
-        );
-        const { id: _id } = decoded
+        const { id: _id } = jwtTokenDecode(req);
         try {
             await User.updateOne(
                 { _id },
-                { $pullAll: { videos: [ req.body.imdbID ]}}
-            )
+                { $pullAll: { videos: [ req.params.imdbID ]}}
+            );
             return res.send({ success: true });
         } catch (error) {
-            throw error
+            throw error;
         }
     },
     getSavedVideo: async (req: any, res: Response): Promise<any> => {
-        const decoded: any = jwt.verify(
-            req.headers.authorization.split(' ')[1],
-            process.env.JWT_SECRET
-        );
-        const { id: _id } = decoded
+        const { id: _id } = jwtTokenDecode(req);
         try {
-            const { videos }: any = await User.findById({ _id }).select('videos')
+            const { videos }: any = await User.findById({ _id }).select('videos');
             return res.send(videos);
         } catch (error) {
-            throw error
+            throw error;
         }
     },
 }

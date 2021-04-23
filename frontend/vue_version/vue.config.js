@@ -12,14 +12,13 @@ module.exports = {
   },
   publicPath: '/',
   devServer: {
-    port: 8080,
-    // port: 3000,
+    port: 6002,
+    host: '127.0.0.1',
     proxy: {
-      '/api': {
-        // target: 'http://[::1]:3001',
-        target: 'http://localhost:3001',
+      '^/api': {
+        target: 'http://127.0.0.1:6001',
         changeOrigin: true
       }
     }
-  }
+  },
 }

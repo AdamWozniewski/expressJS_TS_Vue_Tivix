@@ -1,7 +1,8 @@
 <template>
   <el-row>
     <el-col :span="24">
-      <h1>Admin secret View</h1>
+      <h2>Secret Admin View</h2>
+      <el-divider />
     </el-col>
   </el-row>
   <el-row>

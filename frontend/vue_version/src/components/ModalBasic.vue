@@ -1,8 +1,8 @@
 <template>
   <el-dialog
-      title="afasfafa"
+      :title="modalProperties.title"
       v-model="modalVisibility"
-      width="30%"
+      width="50%"
       :before-close="closeModal">
     <div>
       <component :is="modals[modalProperties.type]" :modalProperties="modalProperties" />
@@ -25,8 +25,8 @@ export default {
   methods: {
     ...mapMutations('utilities', ['SET_MODAL_VISIBILITY']),
     closeModal() {
-      this.SET_MODAL_VISIBILITY()
+      this.SET_MODAL_VISIBILITY();
     }
-  }
-}
+  },
+};
 </script>

@@ -8,8 +8,8 @@
           </div>
         </template>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="120px" class="demo-ruleForm">
-          <el-form-item label="Password" prop="pass">
-            <el-input type="password" v-model="ruleForm.pass" autocomplete="off" />
+          <el-form-item label="Password" prop="password">
+            <el-input type="password" v-model="ruleForm.password" autocomplete="off" />
           </el-form-item>
           <el-form-item label="Confirm" prop="checkPass">
             <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off" />
@@ -18,8 +18,11 @@
             <el-input v-model="ruleForm.email"></el-input>
           </el-form-item>
           <el-divider />
-          <el-form-item prop="name" label="Name" >
-            <el-input v-model="ruleForm.name"></el-input>
+          <el-form-item prop="first_name" label="First Name" >
+            <el-input v-model="ruleForm.first_name"></el-input>
+          </el-form-item>
+          <el-form-item prop="last_name" label="Last Name" >
+            <el-input v-model="ruleForm.last_name"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="validForm">Submit</el-button>
@@ -36,15 +39,14 @@
         </el-col>
       </el-card>
     </el-col>
-
   </el-row>
-
 </template>
 
 <script>
 // import { defineComponent } from 'vue'
-import AuthService from "@/services/AuthService";
-import RuleMixin from "@/mixins/RuleMixin";
+import AuthService from '@/services/AuthService';
+import RuleMixin from '@/mixins/RuleMixin';
+
 export default {
   name: 'CreateUser',
   mixins: [ RuleMixin ],
@@ -57,9 +59,9 @@ export default {
     },
     async submit() {
       try {
-        const { email, pass, name } = this.ruleForm
-        const data = await AuthService.createUser({ email, pass, name })
-        console.log(data)
+        const { email, password, first_name, last_name } = this.ruleForm
+        await AuthService.createUser({ email, password, first_name, last_name })
+        this.$router.push({ name: 'Login' })
       } catch ({ message }) {
         this.$message({
           type: 'error',

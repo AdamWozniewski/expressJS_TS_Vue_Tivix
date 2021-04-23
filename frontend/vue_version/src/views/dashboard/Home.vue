@@ -2,33 +2,27 @@
   <el-container>
     <el-aside width="200px">
       <el-menu :default-openeds="['1']">
-        <el-menu-item :key="index" v-for="({ name, exact, icon, title }, index) in routes">
+        <el-menu-item :key="index" v-for="({ name, exact, icon, title }, index) in matchedRoutes">
           <i :class="icon" />
-          <el-link type="primary">
-            <router-link :to="{ name }" :exact="exact">{{ title }}</router-link>
-          </el-link>
+          <router-link :to="{ name }" :exact="exact">{{ title }}</router-link>
         </el-menu-item>
         <el-divider />
-        <el-menu-item>
+        <el-menu-item @click="logout">
           <i class="el-icon-video-pause" />
-          <el-link type="primary">
-            Logout
-          </el-link>
+          Logout
         </el-menu-item>
       </el-menu>
     </el-aside>
-
     <el-container>
       <el-header style="text-align: right; font-size: 12px">
         <el-dropdown>
-          <i class="el-icon-setting" style="margin-right: 15px"></i>
+          <el-avatar icon="el-icon-user-solid"></el-avatar>
           <template #dropdown>
             <el-dropdown-menu>
               <el-dropdown-item @click="userProfile">User Profile</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
-        <span>Tom</span>
       </el-header>
       <el-main>
         <router-view />
@@ -38,28 +32,67 @@
   <ModalBasic />
 </template>
 
-
-<script lang="ts">
-import { defineComponent } from 'vue';
-import { mapMutations } from "vuex";
+<script>
+import { mapMutations, mapState } from 'vuex';
+import AuthService from '@/services/AuthService';
 import routes from '@/router/routes';
 import ModalBasic from '@/components/ModalBasic.vue'
-export default defineComponent({
+
+export default {
   components: { ModalBasic },
   data() {
     return {
       routes
     }
   },
+  computed: {
+    ...mapState('user', ['user']),
+    matchedRoutes() {
+      // this.routes.filter(route => {
+      //
+      // })
+      return this.routes;
+    }
+  },
+  mounted() {
+    this.getUserProfile()
+  },
   methods: {
     ...mapMutations('utilities', ['SET_MODAL_VISIBILITY', 'SET_MODAL_PROPS']),
+    ...mapMutations('user', ['SET_USER']),
     userProfile() {
       this.SET_MODAL_VISIBILITY(true)
       this.SET_MODAL_PROPS({
         title: 'User Information',
         type: 'UserInformation',
       })
-    }
+    },
+    async getUserProfile() {
+      try {
+        this.SET_USER(await AuthService.getUser())
+      } catch (error) {
+        this.$message({
+          type: 'error',
+          message: 'Error download user info',
+        });
+      }
+    },
+    async logout() {
+      try {
+        await AuthService.logout();
+        this.SET_USER();
+        this.$router.push({ name: 'Login' });
+        this.$message({
+          type: 'success',
+          message: 'Logout success',
+        });
+      } catch (e) {
+        this.$message({
+          type: 'error',
+          message: 'Logout error',
+        });
+      }
+    },
   }
-})
+};
 </script>

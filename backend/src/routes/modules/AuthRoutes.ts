@@ -3,6 +3,7 @@ import passport from 'passport';
 import authController from '../../controllers/authController';
 import links from '../../config/staticLinks';
 import { BasedRoutes } from './BasedRoutes';
+import { authorisationJWT } from '../../middlewares/auth';
 
 export class AuthRoutes extends BasedRoutes {
   constructor(nameOfPath: string) {
@@ -10,7 +11,7 @@ export class AuthRoutes extends BasedRoutes {
   }
   public setRoute (): Router {
     const router: Router = Router();
-    const { register, login, logout, refresh } = links.endpointType.actions
+    const { register, login, logout, refresh, userInformation } = links.endpointType.actions
     router.post(
         `${this.nameOfPath}${register}`,
         authController.register,
@@ -24,10 +25,15 @@ export class AuthRoutes extends BasedRoutes {
         `${this.nameOfPath}${refresh}`,
         authController.refresh,
     );
-    router.get(
+    router.post(
         `${this.nameOfPath}${logout}`,
-        passport.authenticate('local', { session: false }),
+        authorisationJWT,
         authController.logout,
+    );
+    router.get(
+        `${this.nameOfPath}${userInformation}`,
+        authorisationJWT,
+        authController.userInformation,
     );
     return router;
   }

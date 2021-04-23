@@ -7,8 +7,8 @@ export default {
       if (!value) {
         callback(new Error('Please input the password'));
       } else {
-        if (this.ruleForm.pass) {
-          this.$refs.ruleForm.validateField('pass');
+        if (this.ruleForm.password) {
+          this.$refs.ruleForm.validateField('password');
         }
         callback();
       }
@@ -16,7 +16,7 @@ export default {
     const confirmPass = (rule, value, callback) => {
       if (!value) {
         callback(new Error('Please input the password again'));
-      } else if (value !== this.ruleForm.pass) {
+      } else if (value !== this.ruleForm.password) {
         callback(new Error('Two inputs don\'t match!'));
       } else {
         callback();
@@ -24,20 +24,26 @@ export default {
     };
     return {
       ruleForm: {
-        pass: '',
+        // password: '',
+        password: 'asfasfafafaf',
         checkPass: '',
-        email: '',
-        name: '',
+        // email: '',
+        email: 'abc@abc.abc',
+        first_name: '',
+        last_name: '',
       },
       rules: {
-        pass: [{ validator: validatePass, trigger: 'blur' }],
+        password: [{ validator: validatePass, trigger: 'blur' }],
         email: [
           { required: true, message: 'Please input email address', trigger: 'blur' },
           { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
         ],
         checkPass: [{ validator: confirmPass, trigger: 'blur' }],
-        name: [
-          { required: true, message: 'Please input name', trigger: 'blur' },
+        first_name: [
+          { required: true, message: 'Please input first name', trigger: 'blur' },
+        ],
+        last_name: [
+          { required: true, message: 'Please input last name', trigger: 'blur' },
         ]
       }
     }

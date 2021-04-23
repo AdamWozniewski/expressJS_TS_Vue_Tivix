@@ -10,10 +10,10 @@ export class VideoRoutes extends BasedRoutes {
     }
     public setRoute (): Router {
         const router: Router = Router();
-        const { save, getAll, deleteVideo } = links.endpointType.actions
-        router.post(`${this.nameOfPath}${save}`, videoController.saveVideo);
-        router.delete(`${this.nameOfPath}${deleteVideo}`, videoController.deleteVideo);
-        router.get(`${this.nameOfPath}${getAll}`, videoController.getSavedVideo);
+        const { save, getVideo, deleteVideo } = links.endpointType.actions
+        router.post(`${this.nameOfPath}${save}`, authorisation, videoController.saveVideo);
+        router.delete(`${this.nameOfPath}${deleteVideo}/:imdbID`, authorisation, videoController.deleteVideo);
+        router.get(`${this.nameOfPath}${getVideo}/:imdbID`, authorisation, videoController.getSavedVideo);
 
         return router;
     }
