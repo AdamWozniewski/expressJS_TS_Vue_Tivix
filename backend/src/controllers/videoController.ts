@@ -15,7 +15,6 @@ export default {
                 { _id },
                 { $push: { videos: req.params.imdbID }}
             )
-            //const { videos }: any = await User.findById({ _id }).select('videos');
             return res.send(await returnSelectedVideos(_id));
         } catch (error) {
             throw error;
@@ -28,7 +27,6 @@ export default {
                 { _id },
                 { $pullAll: { videos: [ req.params.imdbID ]}}
             )
-            // const { videos }: any = await User.findById({ _id }).select('videos');
             return res.send(await returnSelectedVideos(_id));
         } catch (error) {
             throw error;
