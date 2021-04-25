@@ -6,20 +6,27 @@ import WildCard from '@/views/WildCard.vue';
 import Admin from '@/views/dashboard/Admin.vue';
 import Favourities from '@/views/dashboard/Favourities.vue';
 import VideoSearch from '@/views/dashboard/VideoSearch.vue';
+import store from '@/store/index';
+import getCookie from "@/assets/cookie";
 
 const routes: any = [
     {
         path: '/',
         redirect: {
-            name: 'Home'
-        }
+            name: 'Home',
+        },
     },
     {
         path: '/home',
         name: 'Home',
         component: Home,
+        beforeEnter: (to: any, from: any, next: Function) => {
+            // if (getCookie('JWT')) next();
+            // else next('login');
+            next();
+        },
         redirect: {
-          name: 'VideoSearch'
+          name: 'VideoSearch',
         },
         children: [{
             name: 'VideoSearch',
@@ -38,7 +45,12 @@ const routes: any = [
             name: 'Admin',
             path: 'admin',
             component: Admin,
-        }]
+            beforeEnter: (to: any, from: any, next: Function) => {
+                const data: any = store.state;
+                if (data.user?.roles?.includes('admin')) next();
+                next('/error-404');
+            },
+        }],
     },
     {
         path: '/login',
@@ -51,19 +63,21 @@ const routes: any = [
         component: CreateUser,
     },
     {
-        path: '/404',
+        path: '/error-404',
         name: 'WildCard',
         component: WildCard,
     },
     {
         path: '/*',
-        redirect: '/404'
+        redirect: {
+            name: 'WildCard',
+        },
     },
-]
+];
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
 });
 
 export default router;

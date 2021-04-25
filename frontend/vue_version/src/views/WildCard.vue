@@ -1,5 +1,10 @@
 <template>
-  <h1>WildCard</h1>
+  <el-row>
+    <el-col :span="24">
+      <el-empty description="Wrong link" />
+      <router-link :to="{name: 'VideoSearch'}">Go back to dashboard</router-link>
+    </el-col>
+  </el-row>
 </template>
 
 <script lang="ts">

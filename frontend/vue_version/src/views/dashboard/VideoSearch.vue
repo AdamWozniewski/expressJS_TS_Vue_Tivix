@@ -42,16 +42,22 @@
       <el-button icon="el-icon-search" type="primary" @click="search">Search</el-button>
     </el-col>
   </el-row>
-  <el-row :gutter="20">
-    <el-col :span="6" v-for="(item, index) in 4" :key="index">
+  <el-divider />
+  <el-row v-if="videos?.imdbID">
+    <el-col>
       <el-card class="box-card">
+        <img :src="videos.Poster" alt="">
         <div>
-          information
+          <h3>{{ videos.Title }}</h3>
+        </div>
+        <p><el-tag type="primary">{{ videos.imdbID }}</el-tag></p>
+        <div>
+          <el-button @click="videoDetail">See more</el-button>
         </div>
       </el-card>
     </el-col>
   </el-row>
-  <el-row>
+  <el-row v-else>
     <el-col :span="24">
       <el-empty description="Empty" />
     </el-col>
@@ -60,9 +66,11 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { mapMutations } from 'vuex';
+import VideoService from "@/services/VideoService";
 
 interface VideoSearch {
-  videos: object[];
+  videos: object;
   $message: any;
   title: string;
   videoTypes: string[];
@@ -73,7 +81,7 @@ interface VideoSearch {
 export default defineComponent({
   data() {
     return {
-      videos: [],
+      videos: {},
       $message: {},
       title: '',
       videoTypes: ['movie', 'series', 'episode'],
@@ -82,10 +90,37 @@ export default defineComponent({
     } as VideoSearch;
   },
   methods: {
-    search() {
-      console.log(this.selectedVideoType)
-      console.log(this.year)
-      console.log(this.title)
+    ...mapMutations('utilities', ['SET_MODAL_VISIBILITY', 'SET_MODAL_PROPS']),
+    videoDetail() {
+      this.SET_MODAL_VISIBILITY(true)
+      this.SET_MODAL_PROPS({
+        title: 'Video detail',
+        type: 'VideoDetail',
+        video: this.videos,
+      });
+    },
+    async search() {
+      const video = {
+        t: this.title,
+        y: this.year,
+        type: this.selectedVideoType
+      }
+      try {
+        const data: any = await VideoService.findVideo(video);
+        console.log(data)
+        if (data.Error) {
+          this.$message({
+            type: 'error',
+            message: data.Error,
+          });
+          this.videos = {};
+        } else this.videos = data;
+      } catch (error) {
+        this.$message({
+          type: 'error',
+          message: error
+        });
+      }
     }
   }
 });

@@ -59,14 +59,18 @@ export default {
     },
     async submit() {
       try {
-        const { email, password, first_name, last_name } = this.ruleForm
-        await AuthService.createUser({ email, password, first_name, last_name })
-        this.$router.push({ name: 'Login' })
+        const { email, password, first_name, last_name } = this.ruleForm;
+        await AuthService.createUser({ email, password, first_name, last_name });
+        this.$message({
+          type: 'success',
+          message: 'Create account successfull'
+        });
+        this.$router.push({ name: 'Login' });
       } catch ({ message }) {
         this.$message({
           type: 'error',
-          message
-        })
+          message,
+        });
       }
     },
     resetForm() {

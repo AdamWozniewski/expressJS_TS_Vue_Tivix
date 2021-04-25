@@ -8,16 +8,15 @@
   <el-row :gutter="20">
     <el-col class="mb-10" :span="6" v-for="(video, index) in videos" :key="index">
       <el-card :body-style="{ padding: '0px' }">
-        <img src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png" class="image">
+        <img :src="video.Poster" class="image">
         <div style="padding: 14px;">
-          <h3>Yummy hamburger</h3>
+          <h3>{{ video.Title }}</h3>
           <h4>
-            <el-tag>imdbID: {{ video }}</el-tag>
+            <el-tag>imdbID: {{ video.imdbID }}</el-tag>
           </h4>
-          <el-button type="danger" icon="el-icon-delete" circle @click="deleteVideoFromFavourites(video)" />
+          <el-button type="danger" icon="el-icon-delete" circle @click="deleteVideoFromFavourites(video.imdbID)" />
           <div class="bottom">
-            <time class="time">28.04.1992</time>
-            <el-button type="text" class="button">Operating</el-button>
+            <time class="time">{{ video.Released }}</time>
           </div>
         </div>
       </el-card>
@@ -27,7 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapState } from 'vuex';
+import {mapMutations, mapState} from 'vuex';
 import FavouritesService from '@/services/FavouritesService';
 
 interface Favourities {
@@ -46,9 +45,10 @@ export default defineComponent({
     ...mapState('user', ['user']),
   },
   methods: {
+    ...mapMutations('user', ['SET_USER_VIDEOS']),
     async deleteVideoFromFavourites(imdbID: string) {
       try {
-        await FavouritesService.removeFavourities(imdbID);
+        this.SET_USER_VIDEOS(await FavouritesService.removeFavourities(imdbID))
         this.$message({
           type: 'success',
           message: 'Delete success',
@@ -64,10 +64,11 @@ export default defineComponent({
     },
     async fetchVideos() {
       try {
-        // const data = await Promise.all([
-        //     this.user.videos.map(async (imdbID: string) => await FavouritesService.getFavourities(imdbID))
-        // ])
-        this.videos = this.user.videos;
+        const data = await Promise.all([
+            ...this.user.videos.map(async (imdbID: string) => await FavouritesService.getFavourities(imdbID))
+        ])
+        console.log(data)
+        this.videos = data;
       } catch (error) {
         this.$message({
           type: 'error',

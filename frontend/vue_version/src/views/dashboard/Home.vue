@@ -36,26 +36,25 @@
 import { mapMutations, mapState } from 'vuex';
 import AuthService from '@/services/AuthService';
 import routes from '@/router/routes';
-import ModalBasic from '@/components/ModalBasic.vue'
+import ModalBasic from '@/components/ModalBasic.vue';
 
 export default {
   components: { ModalBasic },
   data() {
     return {
-      routes
+      routes,
     }
   },
   computed: {
     ...mapState('user', ['user']),
     matchedRoutes() {
-      // this.routes.filter(route => {
-      //
-      // })
+      // if (this.user?.roles?.includes('admin')) return this.routes;
+      // else return this.routes.filter(route => route?.visible !== 'admin');
       return this.routes;
     }
   },
   mounted() {
-    this.getUserProfile()
+    this.getUserProfile();
   },
   methods: {
     ...mapMutations('utilities', ['SET_MODAL_VISIBILITY', 'SET_MODAL_PROPS']),
@@ -69,7 +68,7 @@ export default {
     },
     async getUserProfile() {
       try {
-        this.SET_USER(await AuthService.getUser())
+        this.SET_USER(await AuthService.getUser());
       } catch (error) {
         this.$message({
           type: 'error',
@@ -81,7 +80,6 @@ export default {
       try {
         await AuthService.logout();
         this.SET_USER();
-        this.$router.push({ name: 'Login' });
         this.$message({
           type: 'success',
           message: 'Logout success',
@@ -91,6 +89,8 @@ export default {
           type: 'error',
           message: 'Logout error',
         });
+      } finally {
+        this.$router.push({ name: 'Login' });
       }
     },
   }

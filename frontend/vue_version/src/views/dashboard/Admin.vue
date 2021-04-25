@@ -14,7 +14,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+// import {mapState} from "vuex";
 
 export default defineComponent({
+  // computed: {
+  //   ...mapState('user', ['user']),
+  // },
+  // beforeRouteEnter: (to: any, from: any, next: Function) => {
+  //   // if (getCookie('JWT')) next();
+  //   // else next('login');
+  //   // console.log(this.user?.roles?.includes('admin'))
+  //   // next();
+  // },
 })
 </script>

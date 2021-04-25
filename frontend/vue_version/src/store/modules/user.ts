@@ -8,6 +8,9 @@ export default function makeUser (initialConfig = {}) {
         SET_USER(state: any, payload: object = {}) {
             state.user = payload;
         },
+        SET_USER_VIDEOS(state: any, payload: object = {}) {
+            state.user.videos = payload;
+        },
     };
     const actions = {}
     function makeState ({ ...initialConfig }) {

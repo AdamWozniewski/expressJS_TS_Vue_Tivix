@@ -11,6 +11,10 @@ export default {
             email,
             password
         } = req.body;
+        console.log(first_name,
+            last_name,
+            email,
+            password)
         const user: IUser = new User({
             first_name,
             last_name,
@@ -62,7 +66,7 @@ export default {
                 });
             res.cookie('JWT', token, {
                 maxAge: 86400,
-                httpOnly: true,
+                httpOnly: false,
             });
             return res.send({ token, refreshToken });
         } catch (error) {
