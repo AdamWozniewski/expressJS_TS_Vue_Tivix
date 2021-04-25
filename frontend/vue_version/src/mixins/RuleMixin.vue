@@ -25,10 +25,12 @@ export default {
     return {
       ruleForm: {
         // password: '',
-        password: 'asfasfafafaf',
+        // password: 'asfasfafafaf',
+        password: 'admin',
         checkPass: '',
         // email: '',
-        email: 'abc@abc.abc',
+        // email: 'abc@abc.abc',
+        email: 'admin@admin.admin',
         first_name: '',
         last_name: '',
       },

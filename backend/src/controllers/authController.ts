@@ -11,10 +11,6 @@ export default {
             email,
             password
         } = req.body;
-        console.log(first_name,
-            last_name,
-            email,
-            password)
         const user: IUser = new User({
             first_name,
             last_name,

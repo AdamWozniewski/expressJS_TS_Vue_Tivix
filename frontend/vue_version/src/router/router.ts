@@ -7,7 +7,7 @@ import Admin from '@/views/dashboard/Admin.vue';
 import Favourities from '@/views/dashboard/Favourities.vue';
 import VideoSearch from '@/views/dashboard/VideoSearch.vue';
 import store from '@/store/index';
-import getCookie from "@/assets/cookie";
+import getCookie from '@/assets/cookie';
 
 const routes: any = [
     {
@@ -21,9 +21,8 @@ const routes: any = [
         name: 'Home',
         component: Home,
         beforeEnter: (to: any, from: any, next: Function) => {
-            // if (getCookie('JWT')) next();
-            // else next('login');
-            next();
+            if (getCookie('JWT')) next();
+            else next('login');
         },
         redirect: {
           name: 'VideoSearch',
@@ -47,7 +46,7 @@ const routes: any = [
             component: Admin,
             beforeEnter: (to: any, from: any, next: Function) => {
                 const data: any = store.state;
-                if (data.user?.roles?.includes('admin')) next();
+                if (data.user.user.roles.includes('admin')) next();
                 next('/error-404');
             },
         }],

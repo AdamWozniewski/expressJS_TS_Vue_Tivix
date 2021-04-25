@@ -31,7 +31,6 @@ export default defineComponent({
     } as VideoDetail;
   },
   mounted() {
-    console.log(this.modalProperties.video)
     this.video = { ...this.modalProperties.video };
   },
   computed: {

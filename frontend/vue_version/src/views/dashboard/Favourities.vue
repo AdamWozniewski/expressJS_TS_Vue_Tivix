@@ -66,8 +66,7 @@ export default defineComponent({
       try {
         const data = await Promise.all([
             ...this.user.videos.map(async (imdbID: string) => await FavouritesService.getFavourities(imdbID))
-        ])
-        console.log(data)
+        ]);
         this.videos = data;
       } catch (error) {
         this.$message({

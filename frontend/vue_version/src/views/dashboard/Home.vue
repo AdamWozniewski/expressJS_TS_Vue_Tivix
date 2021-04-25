@@ -48,9 +48,9 @@ export default {
   computed: {
     ...mapState('user', ['user']),
     matchedRoutes() {
-      // if (this.user?.roles?.includes('admin')) return this.routes;
-      // else return this.routes.filter(route => route?.visible !== 'admin');
-      return this.routes;
+      if (this.user?.roles?.includes('admin')) return this.routes;
+      else return this.routes.filter(route => route?.visible !== 'admin');
+      // return this.routes;
     }
   },
   mounted() {

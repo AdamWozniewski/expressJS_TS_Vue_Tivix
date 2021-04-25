@@ -39,7 +39,7 @@
       <el-divider />
     </el-col>
     <el-col :span="24">
-      <el-button icon="el-icon-search" type="primary" @click="search">Search</el-button>
+      <el-button icon="el-icon-search" type="primary" :disabled="!title" @click="search">Search</el-button>
     </el-col>
   </el-row>
   <el-divider />
@@ -107,7 +107,6 @@ export default defineComponent({
       }
       try {
         const data: any = await VideoService.findVideo(video);
-        console.log(data)
         if (data.Error) {
           this.$message({
             type: 'error',
@@ -118,7 +117,7 @@ export default defineComponent({
       } catch (error) {
         this.$message({
           type: 'error',
-          message: error
+          message: error,
         });
       }
     }
