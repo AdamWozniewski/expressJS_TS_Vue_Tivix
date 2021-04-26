@@ -102,7 +102,7 @@ export default defineComponent({
     async search() {
       const video = {
         t: this.title,
-        y: this.year,
+        y: this.year && new Date(this.year).getFullYear(),
         type: this.selectedVideoType
       }
       try {
