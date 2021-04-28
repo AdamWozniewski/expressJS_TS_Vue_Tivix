@@ -27,9 +27,7 @@ export default {
   },
   refresh: async (req: any, res: Response): Promise<any> => {
     const refreshToken = req.body.token;
-    if (!refreshToken) {
-      return res.status(401);
-    }
+    if (!refreshToken) return res.status(401);
     try {
       await jwt.verify(refreshToken, process.env.JWT_SECRET_REFRESH);
     } catch (error) {

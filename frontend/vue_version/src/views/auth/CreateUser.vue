@@ -52,8 +52,8 @@ export default {
   mixins: [ RuleMixin ],
   methods: {
     async validForm() {
-      await this.$refs['ruleForm'].validate(async (valid) => {
-        if (valid) this.submit()
+      await this.$refs['ruleForm'].validate(async valid => {
+        if (valid) this.submit();
         else return false;
       });
     },
@@ -75,7 +75,7 @@ export default {
     },
     resetForm() {
       this.$refs['ruleForm'].resetFields();
-    }
+    },
   },
 };
 </script>

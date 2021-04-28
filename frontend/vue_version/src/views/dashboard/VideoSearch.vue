@@ -120,7 +120,7 @@ export default defineComponent({
           message: error,
         });
       }
-    }
-  }
+    },
+  },
 });
 </script>

@@ -44,18 +44,16 @@ export default {
   data() {
     return {
       routes,
-    }
+    };
   },
   computed: {
     ...mapState('user', ['user']),
     matchedRoutes() {
       if (this.user?.roles?.includes('admin')) return this.routes;
       else return this.routes.filter(route => route?.visible !== 'admin');
-      // return this.routes;
     }
   },
   mounted() {
-    console.log(this)
     this.getUserProfile();
   },
   methods: {
@@ -66,7 +64,7 @@ export default {
       this.SET_MODAL_PROPS({
         title: 'User Information',
         type: 'UserInformation',
-      })
+      });
     },
     async getUserProfile() {
       try {
@@ -95,6 +93,6 @@ export default {
         this.$router.push({ name: 'Login' });
       }
     },
-  }
+  },
 };
 </script>

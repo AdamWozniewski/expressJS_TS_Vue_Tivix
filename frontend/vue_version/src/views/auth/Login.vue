@@ -46,7 +46,7 @@ export default {
   methods: {
     ...mapMutations('user', ['SET_USER']),
     async validForm() {
-      await this.$refs['ruleForm'].validate(async (valid) => {
+      await this.$refs['ruleForm'].validate(async valid => {
         if (valid) this.submit()
         else return false;
       });

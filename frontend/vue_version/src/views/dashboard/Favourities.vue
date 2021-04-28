@@ -48,7 +48,7 @@ export default defineComponent({
     ...mapMutations('user', ['SET_USER_VIDEOS']),
     async deleteVideoFromFavourites(imdbID: string) {
       try {
-        this.SET_USER_VIDEOS(await FavouritesService.removeFavourities(imdbID))
+        this.SET_USER_VIDEOS(await FavouritesService.removeFavourities(imdbID));
         this.$message({
           type: 'success',
           message: 'Delete success',
@@ -72,7 +72,7 @@ export default defineComponent({
           message: error,
         });
       }
-    }
+    },
   },
   mounted() {
     this.user.videos.length && this.fetchVideos();
