@@ -10,73 +10,73 @@ import store from '@/store/index';
 import getCookie from '@/assets/cookie';
 
 const routes: any = [
-    {
-        path: '/',
-        redirect: {
-            name: 'Home',
-        },
+  {
+    path: '/',
+    redirect: {
+      name: 'Home',
     },
-    {
-        path: '/home',
-        name: 'Home',
-        component: Home,
-        beforeEnter: (to: any, from: any, next: Function) => {
-            if (getCookie('JWT')) next();
-            else next('login');
-        },
-        redirect: {
-          name: 'VideoSearch',
-        },
-        children: [{
-            name: 'VideoSearch',
-            path: 'video-search',
-            component: VideoSearch,
-        }, {
-            name: 'Account',
-            path: 'account',
-            component: Home,
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    beforeEnter: (to: any, from: any, next: Function) => {
+      if (getCookie('JWT')) next();
+      else next('login');
+    },
+    redirect: {
+      name: 'VideoSearch',
+    },
+    children: [{
+      name: 'VideoSearch',
+      path: 'video-search',
+      component: VideoSearch,
+    }, {
+      name: 'Account',
+      path: 'account',
+      component: Home,
 
-        }, {
-            name: 'Favourities',
-            path: 'favourities',
-            component: Favourities,
-        }, {
-            name: 'Admin',
-            path: 'admin',
-            component: Admin,
-            beforeEnter: (to: any, from: any, next: Function) => {
-                const data: any = store.state;
-                if (data.user.user.roles.includes('admin')) next();
-                next('/error-404');
-            },
-        }],
+    }, {
+      name: 'Favourities',
+      path: 'favourities',
+      component: Favourities,
+    }, {
+      name: 'Admin',
+      path: 'admin',
+      component: Admin,
+      beforeEnter: (to: any, from: any, next: Function) => {
+        const data: any = store.state;
+        if (data.user.user.roles.includes('admin')) next();
+        next('/error-404');
+      },
+    }],
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/create-user',
+    name: 'CreateUser',
+    component: CreateUser,
+  },
+  {
+    path: '/error-404',
+    name: 'WildCard',
+    component: WildCard,
+  },
+  {
+    path: '/*',
+    redirect: {
+      name: 'WildCard',
     },
-    {
-        path: '/login',
-        name: 'Login',
-        component: Login,
-    },
-    {
-        path: '/create-user',
-        name: 'CreateUser',
-        component: CreateUser,
-    },
-    {
-        path: '/error-404',
-        name: 'WildCard',
-        component: WildCard,
-    },
-    {
-        path: '/*',
-        redirect: {
-            name: 'WildCard',
-        },
-    },
+  },
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
+  history: createWebHistory(),
+  routes,
 });
 
 export default router;

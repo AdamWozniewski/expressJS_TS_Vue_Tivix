@@ -16,8 +16,8 @@ export function uploadFile(req: Request, res: Response): void {
 }
 
 export function deleteFile(req: Request, res: Response): Response {
-    const {} = req.body;
-    return res;
+  const {} = req.body;
+  return res;
 }
 
 export function getFile(req: Request, res: Response): Response {

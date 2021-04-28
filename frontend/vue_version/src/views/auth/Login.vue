@@ -53,14 +53,14 @@ export default {
     },
     async submit () {
         try {
-          const { email, password } = this.ruleForm
-          const { token, refreshToken } = await AuthService.login({ email, password })
+          const { email, password } = this.ruleForm;
+          const { token, refreshToken } = await AuthService.login({ email, password });
           token && refreshToken && this.$router.push({ name: 'Home' })
         } catch ({ message }) {
           this.$message({
             type: 'error',
-            message
-          })
+            message,
+          });
         }
     },
     resetForm() {

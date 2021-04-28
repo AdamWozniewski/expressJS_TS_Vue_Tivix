@@ -6,7 +6,7 @@
     </el-col>
   </el-row>
   <el-row :gutter="20">
-    <el-col class="mb-10" :span="8" v-for="(video, index) in videos" :key="index">
+    <el-col class="mb-10" :span="6" v-for="(video, index) in videos" :key="index">
       <el-card :body-style="{ padding: '0px' }">
         <img :src="video.Poster" class="image">
         <div style="padding: 14px;">
@@ -28,7 +28,6 @@
 import { defineComponent } from 'vue';
 import {mapMutations, mapState} from 'vuex';
 import FavouritesService from '@/services/FavouritesService';
-import VideoService from '@/services/VideoService';
 
 interface Favourities {
   videos: object[];
@@ -41,11 +40,6 @@ export default defineComponent({
       videos: [],
       $message: {},
     } as Favourities;
-  },
-  watch: {
-    user() {
-      this.fetchVideos();
-    },
   },
   computed: {
     ...mapState('user', ['user']),
@@ -70,9 +64,7 @@ export default defineComponent({
     },
     async fetchVideos() {
       try {
-        const data = await Promise.all([
-            ...this.user.videos.map(async (imdbID: string) => await VideoService.findVideo({ i: imdbID }))
-        ]);
+        const data = await Promise.all([...this.user.videos.map(async (imdbID: string) => await FavouritesService.getFavourities(imdbID))]);
         this.videos = data;
       } catch (error) {
         this.$message({
@@ -83,7 +75,7 @@ export default defineComponent({
     }
   },
   mounted() {
-    this.user?.videos?.length && this.fetchVideos();
-  }
+    this.user.videos.length && this.fetchVideos();
+  },
 });
 </script>

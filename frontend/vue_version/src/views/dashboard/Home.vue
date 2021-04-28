@@ -1,5 +1,6 @@
 <template>
   <el-container>
+    <p>{{ $t('message') }}</p>
     <el-aside width="200px">
       <el-menu :default-openeds="['1']">
         <el-menu-item :key="index" v-for="({ name, exact, icon, title }, index) in matchedRoutes">
@@ -54,6 +55,7 @@ export default {
     }
   },
   mounted() {
+    console.log(this)
     this.getUserProfile();
   },
   methods: {

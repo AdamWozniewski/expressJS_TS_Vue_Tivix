@@ -10,14 +10,14 @@
   </el-dialog>
 </template>
 <script>
-import { mapState, mapMutations } from 'vuex'
-import modals from './modals'
+import { mapState, mapMutations } from 'vuex';
+import modals from './modals';
 
 export default {
   name: 'ModalBasic',
   components: { ...modals },
   data() {
-    return { modals }
+    return { modals };
   },
   computed: {
     ...mapState('utilities', ['modalVisibility', 'modalProperties']),
@@ -26,7 +26,7 @@ export default {
     ...mapMutations('utilities', ['SET_MODAL_VISIBILITY']),
     closeModal() {
       this.SET_MODAL_VISIBILITY();
-    }
+    },
   },
 };
 </script>

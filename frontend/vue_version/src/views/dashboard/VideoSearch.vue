@@ -67,7 +67,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { mapMutations } from 'vuex';
-import VideoService from "@/services/VideoService";
+import VideoService from '@/services/VideoService';
 
 interface VideoSearch {
   videos: object;
@@ -92,7 +92,7 @@ export default defineComponent({
   methods: {
     ...mapMutations('utilities', ['SET_MODAL_VISIBILITY', 'SET_MODAL_PROPS']),
     videoDetail() {
-      this.SET_MODAL_VISIBILITY(true)
+      this.SET_MODAL_VISIBILITY(true);
       this.SET_MODAL_PROPS({
         title: 'Video detail',
         type: 'VideoDetail',
@@ -104,7 +104,7 @@ export default defineComponent({
         t: this.title,
         y: this.year && new Date(this.year).getFullYear(),
         type: this.selectedVideoType
-      }
+      };
       try {
         const data: any = await VideoService.findVideo(video);
         if (data.Error) {
