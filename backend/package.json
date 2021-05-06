@@ -14,6 +14,7 @@
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
     "formidable": "^1.2.2",
     "graphql": "^14.2.1",
     "http-proxy-middleware": "^1.3.0",
@@ -22,7 +23,6 @@
     "mongo-cursor-pagination": "^7.1.0",
     "mongoose": "^5.10.0",
     "mongoose-url-slugs": "^1.0.2",
-    "nodemon": "^2.0.7",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -30,10 +30,7 @@
     "qs": "^6.6.0",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^2.1.1",
-    "tivix": "file:..",
-    "ts-loader": "^8.1.0",
-    "typegoose": "^5.9.1",
-    "vue_version": "file:..\\frontend\\vue_version"
+    "ts-loader": "^8.1.0"
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.0",
@@ -49,6 +46,7 @@
     "@types/passport-local-mongoose": "^4.0.13",
     "@types/socket.io": "^2.1.13",
     "cookie-parser": "^1.4.5",
-    "typescript": "4.2.3"
+    "nodemon": "^2.0.7",
+    "typegoose": "^5.9.1"
   }
 }

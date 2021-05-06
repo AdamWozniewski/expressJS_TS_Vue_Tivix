@@ -4,17 +4,17 @@ const links = {
     auth: '/auth',
     video: '/video',
     find: '/find',
-
-    actions: {
-      register: '/register',
-      refresh: '/refresh',
-      login: '/login',
-      logout: '/logout',
-      userInformation: '/user-information',
-      save: '/save',
-      getVideo: '/get-video',
-      deleteVideo: '/deleteVideo',
-    },
+    graphQL: '/graphQL',
+  },
+  actions: {
+    register: '/register',
+    refresh: '/refresh',
+    login: '/login',
+    logout: '/logout',
+    userInformation: '/user-information',
+    save: '/save',
+    getVideo: '/get-video',
+    deleteVideo: '/deleteVideo',
   },
 };
 

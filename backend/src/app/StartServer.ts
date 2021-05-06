@@ -6,13 +6,13 @@ import mongoose, { Mongoose } from 'mongoose';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import { createServer, Server as HttpServer } from 'http';
-import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser';
 
 import { IndexRoute } from './../routes/IndexRoute';
-import passportConfig from './../config/passport';
-import admin from './../config/adminCreate'
 
+import Admin from './../config/adminCreate'
 import dbConfig from './../config/database';
+import passportConfig from './../config/passport';
 
 export class StartServer {
   private app: Application;
@@ -31,10 +31,10 @@ export class StartServer {
     this.startServer();
     this.setRouter();
     this.setDatabaseConnect();
-    admin.adminCreate()
+    Admin.adminCreate();
   }
   private async setRouter () {
-    this.app.use('/api', await new IndexRoute().getRoutes())
+    this.app.use('/api', await new IndexRoute().getRoutes());
   }
   private setDatabaseConnect() {
     const mongo = `${dbConfig.mongoUrl}${process.env.MONGO_DATABASE_NAME}`;

@@ -1,12 +1,11 @@
 <template>
   <el-dialog
-      :title="modalProperties.title"
-      v-model="modalVisibility"
-      width="50%"
-      :before-close="closeModal">
-    <div>
-      <component :is="modals[modalProperties.type]" :modalProperties="modalProperties" />
-    </div>
+    :title="modalProperties.title"
+    v-model="modalVisibility"
+    :destroy-on-close="true"
+    width="50%"
+    :before-close="closeModal">
+    <component :is="modals[modalProperties.type]" :modalProperties="modalProperties" />
   </el-dialog>
 </template>
 <script>

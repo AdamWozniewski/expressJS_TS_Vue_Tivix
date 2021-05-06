@@ -92,18 +92,18 @@ export default defineComponent({
   methods: {
     ...mapMutations('utilities', ['SET_MODAL_VISIBILITY', 'SET_MODAL_PROPS']),
     videoDetail() {
-      this.SET_MODAL_VISIBILITY(true);
       this.SET_MODAL_PROPS({
         title: 'Video detail',
         type: 'VideoDetail',
         video: this.videos,
       });
+      this.SET_MODAL_VISIBILITY(true);
     },
     async search() {
       const video = {
         t: this.title,
         y: this.year && new Date(this.year).getFullYear(),
-        type: this.selectedVideoType
+        type: this.selectedVideoType,
       };
       try {
         const data: any = await VideoService.findVideo(video);

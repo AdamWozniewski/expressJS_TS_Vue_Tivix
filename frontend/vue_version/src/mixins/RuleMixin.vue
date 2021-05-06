@@ -26,11 +26,11 @@ export default {
         password: [{ validator: validatePass, trigger: 'blur' }],
         email: [
           { required: true, message: 'Please input email address', trigger: 'blur' },
-          { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] }
+          { type: 'email', message: 'Please input correct email address', trigger: ['blur', 'change'] },
         ],
         checkPass: [{ validator: confirmPass, trigger: 'blur' }],
         first_name: [{ required: true, message: 'Please input first name', trigger: 'blur' }],
-        last_name: [{ required: true, message: 'Please input last name', trigger: 'blur' }]
+        last_name: [{ required: true, message: 'Please input last name', trigger: 'blur' }],
       },
     };
   },

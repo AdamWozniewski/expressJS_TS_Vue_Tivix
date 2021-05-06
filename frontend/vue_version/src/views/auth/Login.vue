@@ -47,7 +47,7 @@ export default {
     ...mapMutations('user', ['SET_USER']),
     async validForm() {
       await this.$refs['ruleForm'].validate(async valid => {
-        if (valid) this.submit()
+        if (valid) this.submit();
         else return false;
       });
     },
@@ -55,7 +55,7 @@ export default {
         try {
           const { email, password } = this.ruleForm;
           const { token, refreshToken } = await AuthService.login({ email, password });
-          token && refreshToken && this.$router.push({ name: 'Home' })
+          token && refreshToken && this.$router.push({ name: 'Home' });
         } catch ({ message }) {
           this.$message({
             type: 'error',
@@ -67,5 +67,5 @@ export default {
       this.$refs['ruleForm'].resetFields();
     }
   }
-}
+};
 </script>

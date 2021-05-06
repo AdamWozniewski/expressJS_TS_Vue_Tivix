@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { BasedRoutes } from './BasedRoutes';
-import searchVideoController from '../../controllers/searchVideoController';
+import SearchVideoController from '../../controllers/rest/SearchVideoController';
+import { authorisationJWT } from '../../middlewares/auth';
 
 export class FindVideoRoutes extends BasedRoutes {
   constructor(nameOfPath: string) {
@@ -8,7 +9,7 @@ export class FindVideoRoutes extends BasedRoutes {
   }
   public setRoute (): Router {
     const router: Router = Router();
-    router.get(`${this.nameOfPath}`, searchVideoController.findVideo);
+    router.get(`${this.nameOfPath}`, authorisationJWT, SearchVideoController.findVideo);
     return router;
   }
 }

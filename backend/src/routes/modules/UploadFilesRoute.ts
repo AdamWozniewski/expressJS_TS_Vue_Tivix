@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getFile, deleteFile, uploadFile } from '../../controllers/uploadFilesController';
+import { getFile, deleteFile, uploadFile } from '../../controllers/rest/uploadFilesController';
 import { BasedRoutes } from './BasedRoutes';
 
 export class UploadFilesRoute extends BasedRoutes {

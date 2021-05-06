@@ -1,6 +1,6 @@
 import passport from 'passport';
 import passportJWT from 'passport-jwt';
-import User from './../models/User';
+import User from '../models/mongoose/User';
 
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
