@@ -15,7 +15,7 @@ export default class VideoController {
         { _id },
         { $push: { videos: req.params.imdbID }},
       )
-      return res.send(await returnSelectedVideos(_id));
+      return res.status(201).send(await returnSelectedVideos(_id));
     } catch (error) {
       throw error;
     }

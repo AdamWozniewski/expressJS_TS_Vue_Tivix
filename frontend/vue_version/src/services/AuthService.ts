@@ -1,4 +1,5 @@
 import $http from '@/axios/axios';
+import RefreshDecorator from '@/decorators/RefreshDecorator';
 
 const staticAuthPart = '/auth';
 
@@ -14,11 +15,7 @@ export default class AuthService {
   static async logout() {
     await $http.post(`${staticAuthPart}/logout`);
   }
-  // static async refresh() {
-  //   await $http.post(`${staticAuthPart}/refresh`, {}, {
-  //
-  //   });
-  // }
+  @RefreshDecorator()
   static async getUser(): Promise<object> {
     const { data } = await $http.get(`${staticAuthPart}/user-information`);
     return data;

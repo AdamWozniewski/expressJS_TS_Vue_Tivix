@@ -1,5 +1,5 @@
 import $http from '@/axios/axios';
-import RefreshDecorator from "@/decorators/RefreshDecorator";
+import RefreshDecorator from '@/decorators/RefreshDecorator';
 
 export default class VideoService {
 

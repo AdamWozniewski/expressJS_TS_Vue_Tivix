@@ -43,7 +43,6 @@
 </template>
 
 <script>
-// import { defineComponent } from 'vue'
 import AuthService from '@/services/AuthService';
 import RuleMixin from '@/mixins/RuleMixin';
 

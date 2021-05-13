@@ -36,6 +36,7 @@ interface Favourities {
 }
 
 export default defineComponent({
+  mixins: [],
   data() {
     return {
       videos: [],
@@ -69,17 +70,17 @@ export default defineComponent({
             ...this.user.videos.map(async (imdbID: string) => await VideoService.findVideo({ i: imdbID })),
         ]);
         this.videos = data;
-        console.log(this.videos)
       } catch (error) {
         this.$message({
           type: 'error',
-          message: error,
+          message: error.message,
         });
+        this.$router.push({ name: 'Login' });
       }
     },
   },
   mounted() {
     this.user.videos.length && this.fetchVideos();
   },
-});
+})
 </script>

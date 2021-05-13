@@ -21,9 +21,9 @@ export default class AuthController {
     });
     try {
       await User.register(user, password);
-      return res.send({ success: true });
+      return res.status(200).send({ success: true });
     } catch (error) {
-      throw error;
+      throw res.status(404).send({ success: false });
     }
   }
   static async refresh (req: any, res: Response): Promise<any> {
@@ -56,7 +56,7 @@ export default class AuthController {
         maxAge: 86400,
         httpOnly: false,
       });
-      return res.send({ token, refreshToken });
+      return res.status(200).send({ token, refreshToken });
     } catch (error) {
       throw error;
     }
@@ -74,7 +74,7 @@ export default class AuthController {
   static async userInformation (req: any, res: Response): Promise<any> {
     const { id: _id } = jwtTokenUtilities(req);
     try {
-      return res.send(await User
+      return res.status(200).send(await User
         .findOne({ _id })
         .select(['videos', 'roles', 'first_name', 'last_name', 'email'])
       );
