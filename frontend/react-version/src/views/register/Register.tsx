@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import {Form, Input, Checkbox, Button, notification} from 'antd';
+import React from 'react';
+import { Form, Input, Checkbox, Button, notification } from 'antd';
 import AuthService from '../../services/AuthService';
+import {useUtilities} from "../../app/useUtilities";
 
 const formItemLayout = {
   labelCol: {
@@ -27,7 +28,7 @@ const tailFormItemLayout = {
 
 const RegistrationForm = () => {
   const [form] = Form.useForm();
-
+  const { test } = useUtilities();
   const register = async (values: any) => {
     try {
       await AuthService.createUser(values);

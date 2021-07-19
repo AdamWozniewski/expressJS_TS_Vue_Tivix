@@ -1,5 +1,5 @@
 import $http from './../axios/axios';
-import { authErr, authSuccess } from './dispatchers/auth';
+import { authErr, authSuccess } from './dispatchers/authDispatch';
 import { routes } from '../routes/routes';
 
 const { apiUser, login, registration } = routes;
@@ -21,3 +21,5 @@ export const register = (username: string, password: string) => (dispatch: Funct
     })
     .then(data => dispatch(authSuccess(data)))
     .catch(err => dispatch(authErr(err)));
+
+export const testDispatcher = (payload: any) => (dispatch: Function) => dispatch(authSuccess(payload))

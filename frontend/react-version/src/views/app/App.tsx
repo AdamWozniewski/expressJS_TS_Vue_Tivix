@@ -1,43 +1,53 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Switch, Link } from 'react-router-dom'
+import RegistrationForm from '../register/Register';
 import Login from '../register/Login';
-
+import Home from '../HomePage';
+import WildCard from '../WildCard';
+import { useTranslation } from 'react-i18next';
+import './../../i18n/index';
+// import { routesArray } from '../../routes/routes';
 import './App.styl';
-import RegistrationForm from "../register/Register";
 
 function App() {
+  const { t, i18n } = useTranslation();
+
   return (
     <div className="App">
-      <Login />
-      <RegistrationForm />
-      {/*<Router>*/}
-      {/*  <div>*/}
-      {/*    <nav>*/}
-      {/*      <ul>*/}
-      {/*        <li>*/}
-      {/*          <Link to="/">Login</Link>*/}
-      {/*        </li>*/}
-      {/*        <li>*/}
-      {/*          <Link to="/about">About</Link>*/}
-      {/*        </li>*/}
-      {/*        <li>*/}
-      {/*          <Link to="/users">Users</Link>*/}
-      {/*        </li>*/}
-      {/*      </ul>*/}
-      {/*    </nav>*/}
+      <button onClick={() => i18n.changeLanguage('pl')}>ABC</button>
+      <h2>{t('welcome')}</h2>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/auth/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/auth/registration">Registration</Link>
+              </li>
+            </ul>
+          </nav>
 
-          {/*<Switch>*/}
-          {/*  <Route path="/about" component={ Login } />*/}
-          {/*  <Route path="/users" component={ Login } />*/}
-          {/*  <Route path="/" component={ App } />*/}
-          {/*</Switch>*/}
-      {/*  </div>*/}
-      {/*</Router>*/}
+          <Switch>
+
+            {/*{ routesArray.map(route => {*/}
+            {/*  const RouteComponent = route.component*/}
+            {/*  return (*/}
+            {/*    <Route exact path={`${route.path}`} component={ RouteComponent } />*/}
+            {/*  );*/}
+            {/*}) }*/}
+            <Route exact path="/" component={ Home } />
+            <Route path="/auth" render={({ match: { url } }) => (
+              <>
+                <Route path={`/auth/login`} component={ Login } />
+                <Route path={`/auth/registration`} component={ RegistrationForm } />
+              </>
+            )} />
+            <Route exact path="*" component={ WildCard } />
+          </Switch>
+        </div>
+      </Router>
     </div>
   );
 }

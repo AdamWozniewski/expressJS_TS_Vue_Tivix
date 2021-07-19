@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Form, Input, Button, notification } from 'antd';
-import AuthService from "../../services/AuthService";
+import AuthService from '../../services/AuthService';
+import { testDispatcher } from "../../actions/auth";
 
 class Login extends Component<any, any> {
-
   state = {
   };
 
   static propTypes = {
-    // items: PropTypes.oneOfType([PropTypes.object]),
   };
 
   static defaultProps = {
   };
 
   auth = async (values: any) => {
+    this.props.testDispatcher('abc z LoginView');
     try {
       const user = await AuthService.login(values);
       console.log(user)
@@ -81,7 +81,7 @@ const mapStateToProps = ({ items }: { items: any[] }) => ({
   items,
 });
 const mapDispatchToProps = (dispatch: Function) => ({
-  // filteredItemsByContext: (itemType, itemContent) => dispatch(filteredItems(itemType, itemContent)),
+  testDispatcher: (payload: any) => dispatch(testDispatcher(payload)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
 
