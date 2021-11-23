@@ -33,13 +33,14 @@
   <ModalBasic />
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import { mapMutations, mapState } from 'vuex';
 import AuthService from '@/services/AuthService';
 import routes from '@/router/routes';
 import ModalBasic from '@/components/ModalBasic.vue';
 
-export default {
+export default defineComponent({
   components: { ModalBasic },
   data() {
     return {
@@ -50,7 +51,7 @@ export default {
     ...mapState('user', ['user']),
     matchedRoutes() {
       if (this.user?.roles?.includes('admin')) return this.routes;
-      else return this.routes.filter(route => route?.visible !== 'admin');
+      else return this.routes.filter((route: any) => route?.visible !== 'admin');
     }
   },
   mounted() {
@@ -94,5 +95,5 @@ export default {
       }
     },
   },
-};
+});
 </script>

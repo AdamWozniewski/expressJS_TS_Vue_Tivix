@@ -61,7 +61,7 @@ export class StartServer {
       next();
     });
     this.app.use(express.static(path.join(__dirname, '../../../dist/')));
-    // this.app.set('io', this.io);
+    // this.hooks.set('io', this.io);
   }
   private startServer () {
     this.server.listen(process.env.PORT, () => console.log('\x1b[36m', 'Serwer uruchomiony'));

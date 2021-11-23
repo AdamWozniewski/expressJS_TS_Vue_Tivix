@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { IncomingForm } from 'formidable';
 import { Response, Request } from 'express';
+// import multer from "multer";
 
 export function uploadFile(req: Request, res: Response): void {
     // const form = new IncomingForm();

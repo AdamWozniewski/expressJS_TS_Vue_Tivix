@@ -42,11 +42,12 @@
   </el-row>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import AuthService from '@/services/AuthService';
 import RuleMixin from '@/mixins/RuleMixin';
 
-export default {
+export default defineComponent({
   name: 'CreateUser',
   mixins: [ RuleMixin ],
   methods: {
@@ -76,5 +77,6 @@ export default {
       this.$refs['ruleForm'].resetFields();
     },
   },
-};
+});
+
 </script>

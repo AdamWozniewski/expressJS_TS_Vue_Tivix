@@ -2,8 +2,8 @@
 
  RUN mkdir -p /app
  WORKDIR /app
- #/usr/src/app
- cOPY package.json /app
+ #/usr/src/hooks
+ COPY package.json /app
  RUN npm install
 
  COPY . /app

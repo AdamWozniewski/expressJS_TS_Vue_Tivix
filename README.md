@@ -7,16 +7,16 @@ Projekt początkowy. Punkt wyjścia do każdego innego. Zawiera:
 * REST API oraz GraphQL
 * Automatyczne dodawanie roli Admina
 * Proxy
-
+---
 Wykorzystane technologie:
 * ExpressJS
 * TypeScript
 * Mongoose
 * GraphQL
 * SocketIO
-
+---
 Całość da się uruchomić za pomocą *Docker'a*
-Projekt posiada także wersje językowe po stronie front-endu. Zarówno dla Wersji Vue, React
+Projekt posiada także wersje językowe po stronie front-endu. Zarówno dla Wersji **Vue**, **React**, oraz panelu *Admin* w **Angular** 
 
 **Install node_modules**
 
@@ -25,10 +25,3 @@ Projekt posiada także wersje językowe po stronie front-endu. Zarówno dla Wers
 ``2) npm install:frontend``
 
 ``3) npm i``
-
----------------------
-**Run project**
-
-``1) npm run backend``
-
-``2) npm run frontend``

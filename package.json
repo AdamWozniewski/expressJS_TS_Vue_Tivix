@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "backend": "cd backend && npm run dev",
-    "frontend": "cd frontend/vue_version && npm run serve",
+    "frontend:vue": "cd frontend/vue_version && npm run serve",
+    "frontend:react": "cd frontend/react-version && npm run start",
     "install:backend": "npm --prefix ./backend install",
     "install:frontend": "npm --prefix ./frontend/vue_version install",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,7 +17,9 @@
     "axios": "^0.21.1"
   },
   "devDependencies": {
+    "autoprefixer": "^9",
     "eslint": "^7.25.0",
+    "http-proxy-middleware": "^2.0.1",
     "typescript": "~4.2.4"
   }
 }

@@ -28,18 +28,13 @@
   </el-card>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
+import { mapMutations } from 'vuex';
 import AuthService from '@/services/AuthService';
 import RuleMixin from '@/mixins/RuleMixin.vue';
-import { mapMutations } from 'vuex';
 
-export default {
-  // data () {
-  //   return {
-  //     $message: {},
-  //     $refs: {},
-  //   } as Login
-  // },
+export default defineComponent({
   name: 'Login',
   mixins: [ RuleMixin ],
   methods: {
@@ -52,8 +47,8 @@ export default {
     },
     async submit () {
         try {
-          const { email, password } = this.ruleForm;
-          const { token, refreshToken } = await AuthService.login({ email, password });
+          const { email, password }: { email: string, password: string } = this.ruleForm;
+          const { token, refreshToken }: { token: any, refreshToken: any } = await AuthService.login({ email, password });
           token && refreshToken && this.$router.push({ name: 'Home' });
         } catch ({ message }) {
           this.$message({
@@ -66,5 +61,5 @@ export default {
       this.$refs['ruleForm'].resetFields();
     }
   }
-};
+});
 </script>

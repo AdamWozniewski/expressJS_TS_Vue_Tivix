@@ -1,19 +1,27 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { notification } from 'antd';
+import { UtilitiesNotification, UtilitiesState } from '../../types/UtilitiesState';
+import { defaultUtilitiesState } from '../defaultState';
 
 const utilitiesReducer = createSlice({
   name: 'utilities',
-  initialState: {
-    value: 0
-  },
+  initialState: defaultUtilitiesState,
   reducers: {
-    notification: state => {},
+    notificationDispatch: (state: UtilitiesState, action: PayloadAction<UtilitiesNotification>) => {
+      const { payload: { description, message, type } } = action;
+      notification[type]({
+        message,
+        description,
+      });
+    },
+    modalDispatch: (state: UtilitiesState, action: PayloadAction<any>) => {
+      return { ...state, modal: { ...action.payload } };
+    }
   },
 });
 
-// dispatchers
-export const { notification } = utilitiesReducer.actions;
-// store values
-export const selectCount = (state: any) => state.counter.value;
+export const { notificationDispatch, modalDispatch } = utilitiesReducer.actions;
+
+export const selectModal = (state: any) => state.utilitiesReducer.modal;
 
 export default utilitiesReducer.reducer;
-

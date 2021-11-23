@@ -2,6 +2,7 @@ const links = {
   endpointType: {
     admin: '/admin',
     auth: '/auth',
+    file: '/file',
     video: '/video',
     find: '/find',
     graphQL: '/graphQL',

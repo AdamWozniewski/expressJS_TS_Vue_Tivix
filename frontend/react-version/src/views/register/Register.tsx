@@ -1,7 +1,8 @@
 import React from 'react';
-import { Form, Input, Checkbox, Button, notification } from 'antd';
+import { Form, Input, Checkbox, Button } from 'antd';
 import AuthService from '../../services/AuthService';
-import {useUtilities} from "../../app/useUtilities";
+import { useUtilities } from '../../hooks/useUtilities';
+import { notificationDispatch } from '../../store/reducers/utilitiesReducer';
 
 const formItemLayout = {
   labelCol: {
@@ -28,41 +29,38 @@ const tailFormItemLayout = {
 
 const RegistrationForm = () => {
   const [form] = Form.useForm();
-  const { test } = useUtilities();
+  const { dispatch } = useUtilities();
   const register = async (values: any) => {
-    try {
-      await AuthService.createUser(values);
-      notification.success({
-        message: 'Notification Title',
-        description:
-          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-      });
-    } catch (error) {
-      notification.error({
-        message: 'Notification Title',
-        description:
-          'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-      });
-    }
-  };
-  const onFinishFailed = () => {
-    notification.error({
+      await AuthService.createUser(values)
+          .then(() => dispatch(notificationDispatch({
+            type: 'success',
+            message: 'Notification Title',
+            description: 'Form is not valid'
+          })))
+          .catch(() =>dispatch(notificationDispatch({
+            type: 'error',
+            message: 'Notification Title',
+            description: 'Form is not valid'
+          })))
+  }
+  const onFinishFailed = () =>
+    dispatch(notificationDispatch({
+      type: 'error',
       message: 'Notification Title',
       description: 'Form is not valid'
-    });
-  }
+    }));
   return (
     <Form
       {...formItemLayout}
       form={form}
-      name="register"
+      name='register'
       onFinish={register}
       onFinishFailed={onFinishFailed}
       scrollToFirstError
     >
       <Form.Item
-        name="email"
-        label="E-mail"
+        name='email'
+        label='E-mail'
         rules={[
           {
             type: 'email',
@@ -78,8 +76,8 @@ const RegistrationForm = () => {
       </Form.Item>
 
       <Form.Item
-        name="password"
-        label="Password"
+        name='password'
+        label='Password'
         rules={[
           {
             required: true,
@@ -92,8 +90,8 @@ const RegistrationForm = () => {
       </Form.Item>
 
       <Form.Item
-        name="confirm"
-        label="Confirm Password"
+        name='confirm'
+        label='Confirm Password'
         dependencies={['password']}
         hasFeedback
         rules={[
@@ -113,24 +111,24 @@ const RegistrationForm = () => {
       </Form.Item>
 
       <Form.Item
-        name="first_name"
-        label="First Name"
+        name='first_name'
+        label='First Name'
         rules={[{ required: true, message: 'Please input your first name!', whitespace: true }]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        name="last_name"
-        label="Last Name"
+        name='last_name'
+        label='Last Name'
         rules={[{ required: true, message: 'Please input your last name!', whitespace: true }]}
       >
         <Input />
       </Form.Item>
 
       <Form.Item
-        name="agreement"
-        valuePropName="checked"
+        name='agreement'
+        valuePropName='checked'
         rules={[
           {
             validator: (_, value) =>
@@ -140,11 +138,11 @@ const RegistrationForm = () => {
         {...tailFormItemLayout}
       >
         <Checkbox>
-          I have read the <a href="">agreement</a>
+          I have read the <a href=''>agreement</a>
         </Checkbox>
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
+        <Button type='primary' htmlType='submit'>
           Register
         </Button>
       </Form.Item>
@@ -152,4 +150,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export { RegistrationForm };

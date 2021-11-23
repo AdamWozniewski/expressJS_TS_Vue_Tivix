@@ -1,17 +1,27 @@
-import ACTIONS from './../../static/ACTIONS';
-import { userState } from '../defaultState';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {UtilitiesState} from '../../types/UtilitiesState';
+import {UserState} from '../../types/UserState';
+import {defaultUserState} from '../defaultState';
 
-const userReducer = (state = userState, action: any) => {
-  const { type, payload } = action;
-  switch (type) {
-    case ACTIONS.AUTH_SUCCESS: {
-      return {
-        ...state,
-        userID: payload.data,
-      };
+const userReducer = createSlice({
+  name: 'user',
+  initialState: defaultUserState,
+  reducers: {
+    loginUser: (state: UserState, action: PayloadAction<any>) => {
+      const storage = action.payload.remember ? window.localStorage : sessionStorage;
+      storage.setItem('auth', JSON.parse(action.payload));
+      return {...state, user: action.payload}
+    },
+    logoutUser: () => {
+      localStorage.clear();
+      sessionStorage.clear();
+      return undefined;
     }
-    default: return state;
-  }
-};
+  },
+});
 
-export default userReducer;
+export const { loginUser, logoutUser } = userReducer.actions;
+
+export const selectCount = (state: UtilitiesState) => state;
+
+export default userReducer.reducer;

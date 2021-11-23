@@ -1,8 +1,8 @@
 version: "3"
 services:
-  tivix-test:
-    container_name: tivix-test
-    image: latest/tivix-test
+  cms:
+    container_name: csm-boilerplate
+    image: latest/csm-boilerplate-test
     restart: always
     build: .
     ports:

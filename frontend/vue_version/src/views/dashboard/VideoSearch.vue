@@ -69,7 +69,7 @@ import { defineComponent } from 'vue';
 import { mapMutations } from 'vuex';
 import VideoService from '@/services/VideoService';
 
-interface VideoSearch {
+type VideoSearch = {
   videos: object;
   $message: any;
   title: string;

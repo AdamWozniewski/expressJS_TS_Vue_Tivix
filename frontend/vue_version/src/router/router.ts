@@ -19,7 +19,7 @@ const routes: any = [
     path: '/home',
     name: 'Home',
     component: Home,
-    beforeEnter: (to: any, from: any, next: Function) => {
+    beforeEnter: (to: string, from: string, next: Function) => {
       if (getCookie('JWT')) next();
       else next('login');
     },
@@ -43,7 +43,7 @@ const routes: any = [
       name: 'Admin',
       path: 'admin',
       component: Admin,
-      beforeEnter: (to: any, from: any, next: Function) => {
+      beforeEnter: (to: string, from: string, next: Function) => {
         const data: any = store.state;
         if (data.user.user.roles.includes('admin')) next();
         next('/error-404');

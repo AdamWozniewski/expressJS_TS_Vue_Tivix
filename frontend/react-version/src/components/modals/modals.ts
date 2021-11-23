@@ -1,4 +1,5 @@
-const modals = {
-}
+import { UserInformation } from './templates/UserInformation';
 
-export default modals;
+export const modals = {
+  UserInformation,
+};

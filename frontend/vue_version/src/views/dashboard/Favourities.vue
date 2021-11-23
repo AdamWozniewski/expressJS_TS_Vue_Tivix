@@ -30,7 +30,7 @@ import { mapMutations, mapState } from 'vuex';
 import FavouritesService from '@/services/FavouritesService';
 import VideoService from '@/services/VideoService';
 
-interface Favourities {
+type Favourities = {
   videos: object[];
   $message: any;
 }

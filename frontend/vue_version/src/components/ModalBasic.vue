@@ -8,11 +8,14 @@
     <component :is="modals[modalProperties.type]" :modalProperties="modalProperties" />
   </el-dialog>
 </template>
-<script>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
 import { mapState, mapMutations } from 'vuex';
+
 import modals from './modals';
 
-export default {
+export default defineComponent({
   name: 'ModalBasic',
   components: { ...modals },
   data() {
@@ -27,5 +30,5 @@ export default {
       this.SET_MODAL_VISIBILITY();
     },
   },
-};
+});
 </script>

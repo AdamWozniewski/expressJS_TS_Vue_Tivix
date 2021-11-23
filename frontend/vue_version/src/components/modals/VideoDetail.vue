@@ -18,7 +18,7 @@ import { defineComponent } from 'vue'
 import { mapMutations, mapState } from 'vuex';
 import FavouritesService from '@/services/FavouritesService';
 
-interface VideoDetail {
+type VideoDetail = {
   $message: any;
   video: object,
 }

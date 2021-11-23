@@ -6,4 +6,4 @@ const WildCard = () => (
   </div>
 );
 
-export default WildCard;
+export { WildCard };
