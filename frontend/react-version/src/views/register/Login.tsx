@@ -5,6 +5,12 @@ import { notificationDispatch } from '../../store/reducers/utilitiesReducer';
 import { loginUser } from '../../store/reducers/userReducer';
 import { useUtilities } from '../../hooks/useUtilities';
 
+type AuthResponse = {
+  refreshToken: string;
+  token: string;
+  remember?: boolean | undefined;
+}
+
 type ConstantLogin = {
   [key: string]: string
 }
@@ -19,16 +25,17 @@ export function Login() {
   const auth = async (values: any) => {
     await AuthService.login({ ...values })
       .then((data) => {
+        console.log(data);
         dispatch(loginUser({...data, remember: values.remember}))
         dispatch(notificationDispatch({
           type: 'success',
-          message: 'Notification Title',
+          message: 'Notification TitleX',
           description: 'Form is not valid'
         }))
       })
       .catch(() => dispatch(notificationDispatch({
         type: 'error',
-        message: 'Notification Title',
+        message: 'Notification TitleY',
         description: 'Form is not valid'
       })))
   }

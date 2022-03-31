@@ -8,8 +8,8 @@ const userReducer = createSlice({
   initialState: defaultUserState,
   reducers: {
     loginUser: (state: UserState, action: PayloadAction<any>) => {
-      const storage = action.payload.remember ? window.localStorage : sessionStorage;
-      storage.setItem('auth', JSON.parse(action.payload));
+      const storage = action.payload.remember ? localStorage : sessionStorage;
+      storage.setItem('auth', JSON.stringify(action.payload));
       return {...state, user: action.payload}
     },
     logoutUser: () => {
@@ -22,6 +22,6 @@ const userReducer = createSlice({
 
 export const { loginUser, logoutUser } = userReducer.actions;
 
-export const selectCount = (state: UtilitiesState) => state;
+export const selectUser = (state: UtilitiesState) => state;
 
 export default userReducer.reducer;

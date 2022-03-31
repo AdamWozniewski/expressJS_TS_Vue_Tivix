@@ -1,7 +1,7 @@
 import $http from '../axios/axios';
 // import { $https } from "../axios/fetch";
 import RefreshDecorator from '../decorators/RefreshDecorator';
-import { apiRouter } from '../routes/routes';
+import { apiRouter } from '../routes/apiRouter';
 
 const staticAuthPart = '/auth';
 const { logout, login, register, userInformation } = apiRouter;
