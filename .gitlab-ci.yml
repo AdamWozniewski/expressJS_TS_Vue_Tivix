@@ -1,0 +1,74 @@
+image: node:16-alpine
+stages:
+# demo stages
+  - build demo
+  - deploy demo
+  - reload webserver demo
+
+##################################################################### DEMO
+build demo:
+  stage: build demo
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules
+  only:
+    - demo
+  environment:
+    name: demo
+  script:
+    - node -v
+    - npm i
+    - npm run-script build
+    - touch ./build/version
+    - echo $(date +"%Y%m%d%H%M") > ./build/version
+    - ls -lth ./build/
+    - pwd
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - /builds/awozniewski/spa-template-1/build
+
+deploy new front directory demo:
+  stage: deploy demo
+  #when: manual
+  only:
+    - demo
+  environment:
+    name: demo
+  before_script:
+    - apk add --update openssh-client bash
+    - eval $(ssh-agent -s)
+    - bash -c 'ssh-add <(echo "$SSH_PRIVATE" | base64 -d)'
+    - mkdir -p ~/.ssh
+  script:
+    - pwd
+    - ls
+    - export DATETIME=$(cat /builds/awozniewski/spa-template-1/build/version)
+    - echo ${DATETIME}
+    - ssh -o StrictHostKeyChecking=no ${USER_FRONT}@${SERVER_IP} mkdir ${FRONT_DIR}/${DATETIME}
+    - scp -o StrictHostKeyChecking=no -r /builds/awozniewski/spa-template-1/build/* ${USER_FRONT}@${SERVER_IP}:${FRONT_DIR}/${DATETIME}
+    - ssh -o StrictHostKeyChecking=no  ${USER_FRONT}@${SERVER_IP} "unlink ${FRONT_DIR}/current"
+    - ssh -o StrictHostKeyChecking=no  ${USER_FRONT}@${SERVER_IP} "ln -s ${FRONT_DIR}/${DATETIME} ${FRONT_DIR}/current"
+
+reload nginx demo:
+  stage: reload webserver demo
+  needs:
+    - 'deploy new front directory demo'
+  only:
+    - demo
+  environment:
+    name: demo
+  before_script:
+    - apk add --update openssh-client bash
+    - eval $(ssh-agent -s)
+    - mkdir -p ~/.ssh
+    - bash -c 'ssh-add <(echo "$SSH_PRIVATE" | base64 -d)'
+  script:
+    - ssh -o StrictHostKeyChecking=no ${USER_FRONT}@${SERVER_IP} '/usr/bin/sudo /usr/sbin/nginx -t'
+    - ssh -o StrictHostKeyChecking=no ${USER_FRONT}@${SERVER_IP} '/usr/bin/sudo /usr/bin/systemctl reload nginx'
+    - ssh -o StrictHostKeyChecking=no ${USER_FRONT}@${SERVER_IP} '/usr/bin/sudo /usr/bin/systemctl status nginx'
+
+##################################################################### DEMO

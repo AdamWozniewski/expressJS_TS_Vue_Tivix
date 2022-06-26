@@ -5,7 +5,7 @@ const refresh = async (originalMethod: Function, args: any) =>
     .then(async () => await originalMethod.apply(this, args))
     .catch(error => { throw new Error(error) });
 
-const RefreshToken = () => {
+export const RefreshToken = () => {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
     const originalMethod = descriptor.value;
     descriptor.value = async (...args: any[]) => {
@@ -19,5 +19,3 @@ const RefreshToken = () => {
     };
   };
 };
-
-export default RefreshToken;

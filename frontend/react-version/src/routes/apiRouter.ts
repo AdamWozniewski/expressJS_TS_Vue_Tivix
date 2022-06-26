@@ -1,4 +1,4 @@
-export const apiRouter = {
+export const apiRouter: any = {
   login: '/login',
   logout: '/logout',
   register: '/register',

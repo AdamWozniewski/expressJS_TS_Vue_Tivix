@@ -35,7 +35,7 @@ import AuthService from '@/services/AuthService';
 import RuleMixin from '@/mixins/RuleMixin.vue';
 
 export default defineComponent({
-  name: 'Login',
+  name: 'login-component',
   mixins: [ RuleMixin ],
   methods: {
     ...mapMutations('user', ['SET_USER']),

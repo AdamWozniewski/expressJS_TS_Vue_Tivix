@@ -41,6 +41,7 @@ import routes from '@/router/routes';
 import ModalBasic from '@/components/ModalBasic.vue';
 
 export default defineComponent({
+  name: 'home-view',
   components: { ModalBasic },
   data() {
     return {

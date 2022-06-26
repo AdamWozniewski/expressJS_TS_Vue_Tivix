@@ -7,7 +7,7 @@ export interface IUser extends Document {
   last_name: string;
   email: string;
   roles: [];
-  videos: Array<string>;
+  videos: Array<any>;
 }
 
 const UserSchema: Schema = new Schema({

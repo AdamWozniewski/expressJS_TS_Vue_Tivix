@@ -3,6 +3,7 @@ import { Response, Request } from 'express';
 import User, { IUser } from '../../models/mongoose/User';
 import { jwtTokenUtilities, jwtSign } from '../../utilities/jwtTokenUtilities';
 import Access from '../../models/mongoose/Access';
+import { EXPIRES, MAX_AGE, JWT_REF, JWT } from '../../static/values';
 
 export default class AuthController {
   static async register (req: Request, res: Response): Promise<any> {
@@ -35,25 +36,25 @@ export default class AuthController {
 
     const { id }: any = jwt.verify(tokenExist.refreshToken, process.env.JWT_SECRET_REFRESH);
     const accessToken = jwt.sign({ id }, process.env.JWT_SECRET, {
-      expiresIn: 86400,
+      expiresIn: EXPIRES,
     });
 
-    res.cookie('JWT', accessToken, {
-      maxAge: 86400,
+    res.cookie(JWT, accessToken, {
+      maxAge: EXPIRES,
       httpOnly: false,
     });
     return res.status(200).json({ accessToken });
   }
   static async login (req: any, res: Response): Promise<any> {
     try {
-      const token = jwtSign(req, process.env.JWT_SECRET, 86400);
-      const refreshToken = jwtSign(req, process.env.JWT_SECRET_REFRESH, 525600);
+      const token = jwtSign(req, process.env.JWT_SECRET, EXPIRES);
+      const refreshToken = jwtSign(req, process.env.JWT_SECRET_REFRESH, MAX_AGE);
       await new Access({ refreshToken }).save();
-      res.cookie('JWT_REF', refreshToken, {
-        maxAge: 525600,
+      res.cookie(JWT_REF, refreshToken, {
+        maxAge: MAX_AGE,
         httpOnly: true,
-      }).cookie('JWT', token, {
-        maxAge: 86400,
+      }).cookie(JWT, token, {
+        maxAge: EXPIRES,
         httpOnly: false,
       });
       return res.status(200).send({ token, refreshToken });
@@ -65,7 +66,7 @@ export default class AuthController {
     try {
       const refreshToken = req.cookies.JWT_REF;
       await Access.findOneAndDelete({ refreshToken });
-      res.clearCookie('JWT').clearCookie('JWT_REF');
+      res.clearCookie(JWT).clearCookie(JWT_REF);
       return res.status(200).json({ success: 'User logged out!' });
     } catch (error) {
       throw error;

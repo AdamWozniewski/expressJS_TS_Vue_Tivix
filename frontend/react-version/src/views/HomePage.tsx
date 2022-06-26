@@ -1,5 +1,4 @@
 import React from 'react';
 
-const Home = () => <h1>Hello</h1>
-
-export { Home };
+type IHomeProps = {};
+export const Home: React.FunctionComponent<IHomeProps> = () => <h1>Hello</h1>;

@@ -3,7 +3,7 @@ import { RegistrationForm } from '../views/register/Register';
 import { Home } from '../views/HomePage';
 import { Secret } from '../views/secret/Secret';
 
-export const routes = {
+export const routes: any = {
   logged: {
     path: '/',
     children: [{

@@ -36,6 +36,7 @@ type Favourities = {
 }
 
 export default defineComponent({
+  name: 'favourities-view',
   mixins: [],
   data() {
     return {

@@ -19,8 +19,8 @@ const CONSTANT: ConstantLogin = {
   EMAIL: 'email',
   ERROR: 'error',
 };
-
-export function Login() {
+type ILoginProps = {};
+export const Login: React.FunctionComponent<ILoginProps> = () => {
   const { dispatch } = useUtilities();
   const auth = async (values: any) => {
     await AuthService.login({ ...values })
@@ -37,8 +37,8 @@ export function Login() {
         type: 'error',
         message: 'Notification TitleY',
         description: 'Form is not valid'
-      })))
-  }
+      })));
+  };
 
   const onFinishFailed = () => {
     dispatch(notificationDispatch({

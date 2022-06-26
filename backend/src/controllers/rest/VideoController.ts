@@ -9,7 +9,7 @@ const returnSelectedVideos = async _id => {
 
 export default class VideoController {
   static async saveVideo (req: any, res: Response): Promise<any> {
-    const { id: _id }: { id: object } = jwtTokenUtilities(req);
+    const { id: _id }: { id: string } = jwtTokenUtilities(req);
     try {
       await User.updateOne(
         { _id },
@@ -21,7 +21,7 @@ export default class VideoController {
     }
   }
   static async deleteVideo(req: any, res: Response): Promise<any> {
-    const { id: _id }: { id: object } = jwtTokenUtilities(req);
+    const { id: _id }: { id: any } = jwtTokenUtilities(req);
     try {
       await User.updateOne(
         { _id },

@@ -7,7 +7,7 @@ import Admin from '@/views/dashboard/Admin.vue';
 import Favourities from '@/views/dashboard/Favourities.vue';
 import VideoSearch from '@/views/dashboard/VideoSearch.vue';
 import store from '@/store/index';
-import getCookie from '@/assets/cookie';
+import { getCookie } from '@/assets/cookie';
 
 const routes: any = [
   {

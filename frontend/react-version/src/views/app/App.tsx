@@ -1,44 +1,42 @@
 import React from 'react';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { SwitchRouting } from '../../routes/SwitchRouting';
 import { BasicModal } from '../../components/modals/BasicModal';
-import './../../i18n/index';
 import { useUtilities } from '../../hooks/useUtilities';
 import { logoutUser } from '../../store/reducers/userReducer';
 import AuthService from '../../services/AuthService';
+import './../../i18n/index';
 
-function App() {
+type IAppProps = {};
+export const App: React.FunctionComponent<IAppProps> = () => {
   const { t, i18n } = useTranslation();
   const { dispatch } = useUtilities();
   const getUser = async () => {
     const user = await AuthService.getUser();
     console.log(user);
-  }
+  };
   return (
     <div>
-      <button onClick={() => i18n.changeLanguage('pl')}>ABC</button>
+      <button onClick={() => i18n.changeLanguage('pl')}>Zmiana na PL</button>
+      <button onClick={() => i18n.changeLanguage('en')}>Zmiana na EN</button>
       <h2>{t('welcome')}</h2>
       <button onClick={() => dispatch(logoutUser())}>logout</button>
       <button onClick={() => getUser()}>getUser</button>
-      <Router>
-        <>
-          <nav>
-            <ul>
-              <li>
-                <Link to='/auth/login'>Login</Link>
-              </li>
-              <li>
-                <Link to='/auth/registration'>Registration</Link>
-              </li>
-            </ul>
-          </nav>
-          <SwitchRouting />
-          <BasicModal />
-        </>
-      </Router>
+      <>
+        <nav>
+          <ul>
+            <li>
+              <Link to='/auth/login'>Login</Link>
+            </li>
+            <li>
+              <Link to='/auth/registration'>Registration</Link>
+            </li>
+          </ul>
+        </nav>
+        <SwitchRouting />
+        <BasicModal />
+      </>
     </div>
   );
-}
-
-export default App;
+};

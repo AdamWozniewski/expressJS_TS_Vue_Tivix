@@ -1,9 +1,8 @@
 import React from 'react';
 
-const WildCard = () => (
+type IWildCardProps = {};
+export const WildCard: React.FunctionComponent<IWildCardProps> = () => (
   <div>
     wildcard
   </div>
 );
-
-export { WildCard };

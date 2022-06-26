@@ -1,4 +1,4 @@
-const getCookie = (cname: string) => {
+export const getCookie = (cname: string) => {
   const cookies = Object.fromEntries(
     document.cookie.split(/; /).map(c => {
       const [key, v] = c.split('=', 2);
@@ -7,4 +7,3 @@ const getCookie = (cname: string) => {
   );
   return cookies[cname] || '';
 };
-export default getCookie;

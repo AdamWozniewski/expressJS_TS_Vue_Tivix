@@ -1,5 +1,6 @@
-export function Secret() {
+type ISecretProps = {};
+export const Secret: React.FunctionComponent<ISecretProps> = () => {
   return (
     <h1>Secret View</h1>
   );
-}
+};
