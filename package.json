@@ -15,12 +15,14 @@
   "author": "AdamW",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "share-part": "file:./frontend/share"
   },
   "devDependencies": {
     "autoprefixer": "^9",
     "eslint": "^7.25.0",
     "http-proxy-middleware": "^2.0.1",
+    "prettier": "^2.7.1",
     "typescript": "^4.7.4",
     "web-vitals": "^2.1.4"
   }

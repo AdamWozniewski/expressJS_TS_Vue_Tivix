@@ -1,21 +1,20 @@
 import { Router } from 'express';
-import links from './../config/staticLinks';
-
+import { links } from '../config/staticLinks';
 import { AuthRoutes } from './modules/AuthRoutes';
 import { VideoRoutes } from './modules/VideoRoutes';
 import { FindVideoRoutes } from './modules/FindVideoRoutes';
 import { GraphQL } from './modules/GraphQL';
-import {UploadFilesRoute} from "./modules/UploadFilesRoute";
+import { UploadFilesRoute } from "./modules/UploadFilesRoute";
 
 export class IndexRoute {
   public getRoutes(): any {
-    const router: Router = Router()
-    router.use(new AuthRoutes(links.endpointType.auth).setRoute());
-
-    router.use(new UploadFilesRoute(links.endpointType.file).setRoute());
-    router.use(new VideoRoutes(links.endpointType.video).setRoute());
-    router.use(new FindVideoRoutes(links.endpointType.find).setRoute());
-    router.use(new GraphQL(links.endpointType.graphQL).setRoute());
+    const router: Router = Router();
+    const { auth, file, video, find, graphQL } = links.endpointType;
+    router.use(new AuthRoutes(auth).setRoute());
+    router.use(new UploadFilesRoute(file).setRoute());
+    router.use(new VideoRoutes(video).setRoute());
+    router.use(new FindVideoRoutes(find).setRoute());
+    router.use(new GraphQL(graphQL).setRoute());
     return router;
   }
 }

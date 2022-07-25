@@ -6,8 +6,8 @@ export interface IUser extends Document {
   first_name: string;
   last_name: string;
   email: string;
-  roles: [];
-  videos: Array<any>;
+  roles: string[];
+  videos: string[];
 }
 
 const UserSchema: Schema = new Schema({
@@ -30,4 +30,4 @@ UserSchema.plugin(passportLocalMongoose, {
   usernameField: 'email',
 });
 
-export default model<IUser>('User', UserSchema as PassportLocalSchema);
+export default model<IUser>('User', UserSchema);

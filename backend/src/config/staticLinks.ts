@@ -1,4 +1,4 @@
-const links = {
+export const links = {
   endpointType: {
     admin: '/admin',
     auth: '/auth',
@@ -15,8 +15,7 @@ const links = {
     userInformation: '/user-information',
     save: '/save',
     getVideo: '/get-video',
+    upload: '/upload',
     deleteVideo: '/deleteVideo',
   },
-};
-
-export default links;
+} as const;

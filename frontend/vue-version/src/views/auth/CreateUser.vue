@@ -45,14 +45,19 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import AuthService from '@/services/AuthService';
-import RuleMixin from '@/mixins/RuleMixin';
+import RuleMixin from '@/mixins/RuleMixin.vue';
 
 export default defineComponent({
   name: 'CreateUser',
   mixins: [ RuleMixin ],
+  data() {
+    return {
+      $refs: {},
+    } as any
+  },
   methods: {
     async validForm() {
-      await this.$refs['ruleForm'].validate(async valid => {
+      await this.$refs['ruleForm'].validate(async (valid: any) => {
         if (valid) this.submit();
         else return false;
       });

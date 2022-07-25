@@ -1,8 +1,8 @@
 import $http from '@/axios/axios';
-import RefreshDecorator from '@/decorators/RefreshDecorator';
+import { RefreshToken } from '@/decorators/RefreshDecorator';
 
 export default class VideoService {
-  @RefreshDecorator()
+  @RefreshToken()
   static async findVideo(params: object): Promise<object> {
     const { data } = await $http.get(`/find`, { params });
     return data;

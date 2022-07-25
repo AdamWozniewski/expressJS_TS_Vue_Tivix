@@ -1,6 +1,6 @@
 import UserSchema from '../../models/graphql/schemas/schema.user';
-import User, { IUser } from "../../models/mongoose/User";
-import { jwtTokenUtilities } from "../../utilities/jwtTokenUtilities";
+import User, { IUser } from '../../models/mongoose/User';
+import { jwtTokenUtilities } from '../../utilities/jwtTokenUtilities';
 
 export default {
   getUserVideos: async args => {

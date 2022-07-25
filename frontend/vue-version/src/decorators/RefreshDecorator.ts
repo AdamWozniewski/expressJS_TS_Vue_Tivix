@@ -11,7 +11,7 @@ export const RefreshToken = () => {
     descriptor.value = async (...args: any[]) => {
       try {
         return await originalMethod.apply(this, args);
-      } catch (error) {
+      } catch (error: any) {
         const response = error.response.status;
         if (response === 401) return refresh(originalMethod, args);
         else return error;

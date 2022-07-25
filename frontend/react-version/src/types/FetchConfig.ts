@@ -6,6 +6,7 @@ export type FetchConfig = {
   headers?: {
     'Content-Type': string;
     Accept?: string,
+    Authorization? :string;
   },
   redirect?: any;
   referrerPolicy?: any;

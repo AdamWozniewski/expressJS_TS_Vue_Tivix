@@ -1,3 +1,3 @@
 {
-  "proxy": "http://www.omdbapi.com",
+  "proxy": "https://www.omdbapi.com/"
 }

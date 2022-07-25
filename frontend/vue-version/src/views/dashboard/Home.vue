@@ -46,7 +46,8 @@ export default defineComponent({
   data() {
     return {
       routes,
-    };
+      $message: {}
+    } as any;
   },
   computed: {
     ...mapState('user', ['user']),

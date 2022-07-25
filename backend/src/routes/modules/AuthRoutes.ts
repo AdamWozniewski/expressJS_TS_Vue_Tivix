@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
-import AuthController from '../../controllers/rest/AuthController';
-import links from '../../config/staticLinks';
+import { AuthController } from '../../controllers/rest/AuthController';
+import { links } from '../../config/staticLinks';
 import { BasedRoutes } from './BasedRoutes';
 import { authorisationJWT } from '../../middlewares/auth';
 

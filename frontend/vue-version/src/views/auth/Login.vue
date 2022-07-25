@@ -37,10 +37,15 @@ import RuleMixin from '@/mixins/RuleMixin.vue';
 export default defineComponent({
   name: 'login-component',
   mixins: [ RuleMixin ],
+  data() {
+    return {
+      $refs: {},
+    } as any;
+  },
   methods: {
     ...mapMutations('user', ['SET_USER']),
     async validForm() {
-      await this.$refs['ruleForm'].validate(async valid => {
+      await this.$refs['ruleForm'].validate(async (valid: any) => {
         if (valid) this.submit();
         else return false;
       });
@@ -48,7 +53,7 @@ export default defineComponent({
     async submit () {
         try {
           const { email, password }: { email: string, password: string } = this.ruleForm;
-          const { token, refreshToken }: { token: any, refreshToken: any } = await AuthService.login({ email, password });
+          const { token, refreshToken }: any = await AuthService.login({ email, password });
           token && refreshToken && this.$router.push({ name: 'Home' });
         } catch ({ message }) {
           this.$message({
@@ -59,7 +64,7 @@ export default defineComponent({
     },
     resetForm() {
       this.$refs['ruleForm'].resetFields();
-    }
+    },
   }
 });
 </script>

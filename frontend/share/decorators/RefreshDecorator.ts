@@ -1,7 +1,7 @@
-import $http from '../axios/axios';
+import { $https } from '../fetch/fetch';
 
 const refresh = async (originalMethod: Function, args: any) =>
-  await $http.post(`http://localhost:6001/api/auth/refresh`)
+  await $https.post(`http://localhost:6001/api/auth/refresh`)
     .then(async () => await originalMethod.apply(this, args))
     .catch(error => { throw new Error(error) });
 

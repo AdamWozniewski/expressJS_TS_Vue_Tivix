@@ -1,6 +1,12 @@
 <script lang="ts">
 export default {
   name: 'MessagesMixin',
+  data() {
+    return {
+      $message: {},
+      $router: {},
+    } as any
+  },
   methods: {
     errorMessage(error: any) {
       this.$message({

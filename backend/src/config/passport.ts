@@ -5,7 +5,7 @@ import User from '../models/mongoose/User';
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 
-function verifyCallback(payload: any, done: any): Promise<any> {
+const verifyCallback = (payload: any, done: any): Promise<any> => {
   return User.findOne({ _id: payload.id })
     .then(user => {
       return done(null, user);
@@ -15,14 +15,11 @@ function verifyCallback(payload: any, done: any): Promise<any> {
     });
 }
 
-function setPassport() {
+export const setPassport = () => {
   const config = {
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.JWT_SECRET,
   };
-
   passport.use(User.createStrategy());
   passport.use(new JWTStrategy(config, verifyCallback));
 }
-
-export default setPassport;

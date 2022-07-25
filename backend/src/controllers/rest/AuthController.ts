@@ -5,7 +5,7 @@ import { jwtTokenUtilities, jwtSign } from '../../utilities/jwtTokenUtilities';
 import Access from '../../models/mongoose/Access';
 import { EXPIRES, MAX_AGE, JWT_REF, JWT } from '../../static/values';
 
-export default class AuthController {
+export class AuthController {
   static async register (req: Request, res: Response): Promise<any> {
     const {
       first_name,
@@ -24,7 +24,7 @@ export default class AuthController {
       await User.register(user, password);
       return res.status(200).send({ success: true });
     } catch (error) {
-      throw res.status(404).send({ success: false });
+      return res.status(404).send({ success: false });
     }
   }
   static async refresh (req: any, res: Response): Promise<any> {
@@ -55,7 +55,7 @@ export default class AuthController {
         httpOnly: true,
       }).cookie(JWT, token, {
         maxAge: EXPIRES,
-        httpOnly: false,
+        httpOnly: true,
       });
       return res.status(200).send({ token, refreshToken });
     } catch (error) {
@@ -75,11 +75,12 @@ export default class AuthController {
   static async userInformation (req: any, res: Response): Promise<any> {
     const { id: _id } = jwtTokenUtilities(req);
     try {
-      return res.status(200).send(await User
-        .findOne({ _id })
-        .select(['videos', 'roles', 'first_name', 'last_name', 'email'])
+      return res.sendStatus(200).json({ ...await User
+          .findOne({ _id })
+          .select(['videos', 'roles', 'first_name', 'last_name', 'email']) }
       );
     } catch (error) {
+      console.log("ABVCCCCCCCCCCCCCCCCCCCCCCCCC");
       throw error;
     }
   }

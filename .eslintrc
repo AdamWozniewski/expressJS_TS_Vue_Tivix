@@ -1,6 +1,18 @@
 {
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "rules": {
-    "semi": ["warn", "always"],
-    "quotes": ["warn", "single"]
+    "semi": [
+      "warn",
+      "always"
+    ],
+    "quotes": [
+      "warn",
+      "single"
+    ],
+    "no-console": "off"
   }
 }

@@ -1,7 +1,14 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
-const $http = axios.create({
-  baseURL: '/api',
+export const $http = axios.create({
+  baseURL: 'http://localhost:6001/api',
 });
-
-export default $http;
+$http.interceptors.request.use((config: AxiosRequestConfig) => ({
+  ...config,
+  headers: {
+    ...config.headers,
+    // Authorization: `Bearer ${
+    //   JSON.parse(<string>sessionStorage.getItem('auth')).token
+    // }`,
+  },
+}));

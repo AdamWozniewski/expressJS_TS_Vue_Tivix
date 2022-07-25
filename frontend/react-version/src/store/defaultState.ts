@@ -8,6 +8,6 @@ export const defaultUtilitiesState: any = {
   modal: {
     title: 'asfafaafasf',
     component: 'UserInformation',
-    visible: true
+    visible: true,
   },
-}
+};

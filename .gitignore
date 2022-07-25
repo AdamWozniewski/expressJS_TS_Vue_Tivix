@@ -4,6 +4,7 @@ node_modules
 package-lock.json
 /**/package-lock.json
 /backend/dist
+/backend/savedFiles
 /backend/node_modules
 
 .DS_Store

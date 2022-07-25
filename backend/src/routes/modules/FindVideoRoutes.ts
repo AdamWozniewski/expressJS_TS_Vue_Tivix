@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { BasedRoutes } from './BasedRoutes';
-import SearchVideoController from '../../controllers/rest/SearchVideoController';
+import { SearchVideoController } from '../../controllers/rest/SearchVideoController';
 import { authorisationJWT } from '../../middlewares/auth';
 
 export class FindVideoRoutes extends BasedRoutes {

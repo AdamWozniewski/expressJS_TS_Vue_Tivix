@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 
 export const authorisationJWT = (
     req: Request,

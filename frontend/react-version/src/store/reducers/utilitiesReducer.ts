@@ -11,13 +11,13 @@ const utilitiesReducer = createSlice({
       const { payload: { description, message, type } } = action;
       notification[type]({
         message,
-        description,
+        description
       });
     },
     modalDispatch: (state: UtilitiesState, action: PayloadAction<any>) => {
       return { ...state, modal: { ...action.payload } };
     }
-  },
+  }
 });
 
 export const { notificationDispatch, modalDispatch } = utilitiesReducer.actions;

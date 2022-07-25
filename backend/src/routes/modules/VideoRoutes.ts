@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import links from '../../config/staticLinks';
+import { links } from '../../config/staticLinks';
 import { authorisationJWT } from '../../middlewares/auth';
 import { BasedRoutes } from './BasedRoutes';
-import VideoController from '../../controllers/rest/VideoController';
+import { VideoController } from '../../controllers/rest/VideoController';
 
 export class VideoRoutes extends BasedRoutes {
   constructor(nameOfPath: string) {
@@ -13,7 +13,6 @@ export class VideoRoutes extends BasedRoutes {
     const { save, getVideo, deleteVideo } = links.actions;
     router.post(`${this.nameOfPath}${save}/:imdbID`, authorisationJWT, VideoController.saveVideo);
     router.delete(`${this.nameOfPath}${deleteVideo}/:imdbID`, authorisationJWT, VideoController.deleteVideo);
-
     return router;
   }
 }

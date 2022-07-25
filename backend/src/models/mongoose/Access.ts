@@ -1,4 +1,5 @@
 import { Schema, Document, model } from 'mongoose';
+import { MAX_AGE } from '../../static/values';
 
 export interface IAccess extends Document {
   refreshToken: String,
@@ -11,7 +12,7 @@ const AccessSchema: Schema = new Schema({
   expireAt: {
     type: Date,
     default: Date.now,
-    expires: 525600,
+    expires: MAX_AGE,
   },
 }, {
   timestamps: true,

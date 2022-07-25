@@ -2,9 +2,9 @@ export default {
   mongoUrl: 'mongodb://localhost:27017/',
   settings: {
     useNewUrlParser: true,
-    reconnectTries: Number.MAX_VALUE,
-    reconnectInterval: 3000,
-    useCreateIndex: true,
+    connectTimeoutMS: Number.MAX_VALUE,
+    keepAliveInitialDelay : 3000,
+    autoIndex: true,
   },
   databaseActions: [
     {

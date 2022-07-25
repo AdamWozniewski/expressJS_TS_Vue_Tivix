@@ -71,7 +71,7 @@ export default defineComponent({
             ...this.user.videos.map(async (imdbID: string) => await VideoService.findVideo({ i: imdbID })),
         ]);
         this.videos = data;
-      } catch (error) {
+      } catch (error: any) {
         this.$message({
           type: 'error',
           message: error.message,

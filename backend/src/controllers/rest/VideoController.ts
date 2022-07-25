@@ -2,12 +2,13 @@ import { Response } from 'express';
 import User, { IUser } from '../../models/mongoose/User';
 import { jwtTokenUtilities } from '../../utilities/jwtTokenUtilities';
 
+const VIDEOS = 'videos';
 const returnSelectedVideos = async _id => {
-  const { videos }: IUser = await User.findById({ _id }).select('videos');
+  const { videos }: IUser = await User.findById({ _id }).select(VIDEOS);
   return videos;
 };
 
-export default class VideoController {
+export class VideoController {
   static async saveVideo (req: any, res: Response): Promise<any> {
     const { id: _id }: { id: string } = jwtTokenUtilities(req);
     try {

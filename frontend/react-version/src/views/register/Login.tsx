@@ -9,11 +9,11 @@ type AuthResponse = {
   refreshToken: string;
   token: string;
   remember?: boolean | undefined;
-}
+};
 
 type ConstantLogin = {
-  [key: string]: string
-}
+  [key: string]: string;
+};
 
 const CONSTANT: ConstantLogin = {
   EMAIL: 'email',
@@ -25,63 +25,80 @@ export const Login: React.FunctionComponent<ILoginProps> = () => {
   const auth = async (values: any) => {
     await AuthService.login({ ...values })
       .then((data) => {
-        console.log(data);
-        dispatch(loginUser({...data, remember: values.remember}))
-        dispatch(notificationDispatch({
-          type: 'success',
-          message: 'Notification TitleX',
-          description: 'Form is not valid'
-        }))
+        dispatch(loginUser({ ...data, remember: values.remember }));
+        dispatch(
+          notificationDispatch({
+            type: 'success',
+            message: 'Notification TitleX',
+            description: 'valid',
+          }),
+        );
       })
-      .catch(() => dispatch(notificationDispatch({
-        type: 'error',
-        message: 'Notification TitleY',
-        description: 'Form is not valid'
-      })));
+      .catch(() =>
+        dispatch(
+          notificationDispatch({
+            type: 'error',
+            message: 'Notification TitleY',
+            description: 'Form is not valid',
+          }),
+        ),
+      );
   };
 
   const onFinishFailed = () => {
-    dispatch(notificationDispatch({
-      type: 'error',
-      message: 'Notification Title',
-      description: 'Form is not valid'
-    }));
-  };
-    return (
-      <div>
-        <Form
-          name='login'
-          labelCol={{ span: 8 }}
-          wrapperCol={{ span: 16 }}
-          onFinish={auth}
-          onFinishFailed={onFinishFailed}
-        >
-          <Form.Item
-            label='Username'
-            name={CONSTANT.EMAIL}
-            rules={[{ required: true, message: 'Please input your username!', type: 'email' }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label='Password'
-            name='password'
-            rules={[{ required: true, message: 'Please input your password!' }]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item name='remember' valuePropName='checked' wrapperCol={{ offset: 8, span: 16 }}>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type='primary' htmlType='submit'>
-              Submit
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
+    dispatch(
+      notificationDispatch({
+        type: 'error',
+        message: 'Notification Title',
+        description: 'Form is not valid',
+      }),
     );
-}
+  };
+  return (
+    <div>
+      <Form
+        name="login"
+        labelCol={{ span: 8 }}
+        wrapperCol={{ span: 16 }}
+        onFinish={auth}
+        onFinishFailed={onFinishFailed}
+      >
+        <Form.Item
+          label="Username"
+          name={CONSTANT.EMAIL}
+          rules={[
+            {
+              required: true,
+              message: 'Please input your username!',
+              type: 'email',
+            },
+          ]}
+        >
+          <Input defaultValue={'admin@admin.admin'} />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: 'Please input your password!' }]}
+        >
+          <Input.Password defaultValue={'admin'} />
+        </Form.Item>
+
+        <Form.Item
+          name="remember"
+          valuePropName="checked"
+          wrapperCol={{ offset: 8, span: 16 }}
+        >
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+};
