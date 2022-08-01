@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 
-export function useUtilities() {
+export const useUtilities = () => {
   const dispatch = useDispatch();
 
   return {
     test: 'test',
     dispatch,
   };
-}
+};

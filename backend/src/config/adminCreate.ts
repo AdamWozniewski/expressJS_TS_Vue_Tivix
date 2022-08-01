@@ -1,5 +1,5 @@
 import User, { IUser } from '../models/mongoose/User';
-const admin = 'admin';
+const admin: string = 'admin';
 
 export class Admin {
   static async adminCreate() {

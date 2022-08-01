@@ -22,8 +22,12 @@ const CONSTANT: ConstantLogin = {
 type ILoginProps = {};
 export const Login: React.FunctionComponent<ILoginProps> = () => {
   const { dispatch } = useUtilities();
-  const auth = async (values: any) => {
-    await AuthService.login({ ...values })
+  const auth = async (values: any): Promise<void> => {
+    // await AuthService.login({ ...values })
+    await AuthService.login({
+      email: 'asas@asfasf.pl',
+      password: 'asfasfafafaf',
+    })
       .then((data) => {
         dispatch(loginUser({ ...data, remember: values.remember }));
         dispatch(
@@ -56,6 +60,7 @@ export const Login: React.FunctionComponent<ILoginProps> = () => {
   };
   return (
     <div>
+      <Button onClick={auth}>SEND</Button>
       <Form
         name="login"
         labelCol={{ span: 8 }}
@@ -74,7 +79,7 @@ export const Login: React.FunctionComponent<ILoginProps> = () => {
             },
           ]}
         >
-          <Input defaultValue={'admin@admin.admin'} />
+          <Input />
         </Form.Item>
 
         <Form.Item
@@ -82,7 +87,7 @@ export const Login: React.FunctionComponent<ILoginProps> = () => {
           name="password"
           rules={[{ required: true, message: 'Please input your password!' }]}
         >
-          <Input.Password defaultValue={'admin'} />
+          <Input.Password />
         </Form.Item>
 
         <Form.Item

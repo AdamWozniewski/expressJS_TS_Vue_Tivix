@@ -1,12 +1,24 @@
 import { $http } from '../axios/axios';
 
-const proxy = 'http://localhost:6001';
-const API_URL = `${proxy}/api`;
-
 const refresh = async (originalMethod: Function, args: any) =>
-  await $http.post(`${API_URL}/auth/refresh`)
+  await $http
+    .post(
+      `/auth/refresh`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${() =>
+            JSON.parse(
+              <string>sessionStorage.getItem('auth') ||
+                <string>localStorage.getItem('auth'),
+            ).refreshToken}`,
+        },
+      },
+    )
     .then(async () => await originalMethod.apply(this, args))
-    .catch(error => { throw new Error(error) });
+    .catch((error) => {
+      throw new Error(error);
+    });
 
 export const RefreshToken = () => {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {

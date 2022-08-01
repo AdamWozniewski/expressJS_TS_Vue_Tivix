@@ -4,10 +4,10 @@ import { AuthRoutes } from './modules/AuthRoutes';
 import { VideoRoutes } from './modules/VideoRoutes';
 import { FindVideoRoutes } from './modules/FindVideoRoutes';
 import { GraphQL } from './modules/GraphQL';
-import { UploadFilesRoute } from "./modules/UploadFilesRoute";
+import { UploadFilesRoute } from './modules/UploadFilesRoute';
 
 export class IndexRoute {
-  public getRoutes(): any {
+  public getRoutes(): Router {
     const router: Router = Router();
     const { auth, file, video, find, graphQL } = links.endpointType;
     router.use(new AuthRoutes(auth).setRoute());

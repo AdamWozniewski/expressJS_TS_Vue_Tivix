@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import UploadService from '../../services/UploadService';
 
-export const EditProfile = () => {
+export const EditProfile: React.FunctionComponent<any> = () => {
   const [selectedFile, setSelectedFile] = useState<any>(null);
   const [isFilePicked, setIsFilePicked] = useState<boolean>(false);
   const onChange = (event: any) => {
@@ -9,7 +9,7 @@ export const EditProfile = () => {
     setIsFilePicked(true);
   };
   const onClick = async () => {
-    const formData: any = new FormData();
+    const formData: FormData = new FormData();
     formData.append('image', selectedFile, selectedFile.name);
     try {
       await UploadService.uploadFile(formData);

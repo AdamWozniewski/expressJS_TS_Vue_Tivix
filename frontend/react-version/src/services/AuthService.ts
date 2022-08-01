@@ -39,8 +39,7 @@ export default class AuthService {
     return data;
   }
 
-  static async logout() {
-    console.log('afasfafaf');
+  static async logout(): Promise<void> {
     await $http.post(`${staticAuthPart}${logout}`);
   }
 

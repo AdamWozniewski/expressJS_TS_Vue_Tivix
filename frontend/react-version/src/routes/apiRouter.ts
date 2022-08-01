@@ -1,4 +1,4 @@
-export const apiRouter: any = {
+export const apiRouter: { [key: string]: string } = {
   login: '/login',
   logout: '/logout',
   register: '/register',

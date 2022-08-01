@@ -40,37 +40,52 @@ export class StartServer {
   }
 
   private setDatabaseConnect() {
-    const mongo = `${dbConfig.mongoUrl}${process.env.MONGO_DATABASE_NAME}`;
+    const mongo: string = `${dbConfig.mongoUrl}${process.env.MONGO_DATABASE_NAME}`;
     const { settings, databaseActions } = dbConfig;
     this.db.connect(mongo, settings);
     this.db.Promise = global.Promise;
     for (const { type, callback } of databaseActions) {
-      if (type === 'error') this.db.connection.on(type, () => {
-        console.log(callback);
-        this.db.connect(mongo, settings);
-      });
+      if (type === 'error')
+        this.db.connection.on(type, () => {
+          console.log(callback);
+          this.db.connect(mongo, settings);
+        });
       else this.db.connection.on(type, () => console.log(callback));
     }
   }
 
   private setStaticConfig() {
-    this.app.use(cors());
-    this.app.use(bodyParser.json());
+    this.app.use(
+      cors({
+        origin: '*',
+        credentials: true,
+        exposedHeaders: ['Set-Cookie', 'Date', 'ETag'],
+      }),
+    );
+    this.app.use(express.json());
     this.app.use(cookieParser());
-    this.app.use(bodyParser.urlencoded({
-      extended: true
-    }));
+    this.app.use(bodyParser.json());
+    this.app.use(
+      bodyParser.urlencoded({
+        extended: true,
+      }),
+    );
     this.app.use((req: Request, res: Response, next: any) => {
       const accessControlAllow = 'Access-Control-Allow-';
       res.header(`${accessControlAllow}Origin`, '*');
-      res.header(`${accessControlAllow}Headers`, 'Origin, X-Requested-With, Content-Type, Accept');
-      next();
+      res.header(`${accessControlAllow}Methods`, '*');
+      res.header(`${accessControlAllow}Headers`, 'Content-Type, Authorization');
+
+      if ('OPTIONS' == req.method) res.send(200);
+      else next();
     });
     this.app.use(express.static(path.join(__dirname, '../../../dist/')));
   }
 
   private startServer() {
-    this.server.listen(process.env.PORT, () => console.log('\x1b[36m', 'Serwer uruchomiony'));
+    this.server.listen(process.env.PORT, () =>
+      console.log('\x1b[36m', 'Serwer uruchomiony'),
+    );
   }
 
   public static bootstrap(): StartServer {

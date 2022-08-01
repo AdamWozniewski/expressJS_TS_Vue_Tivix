@@ -8,11 +8,20 @@ export class VideoRoutes extends BasedRoutes {
   constructor(nameOfPath: string) {
     super(nameOfPath);
   }
-  public setRoute (): Router {
+
+  public setRoute(): Router {
     const router: Router = Router();
-    const { save, getVideo, deleteVideo } = links.actions;
-    router.post(`${this.nameOfPath}${save}/:imdbID`, authorisationJWT, VideoController.saveVideo);
-    router.delete(`${this.nameOfPath}${deleteVideo}/:imdbID`, authorisationJWT, VideoController.deleteVideo);
+    const { save, deleteVideo } = links.actions;
+    router.post(
+      `${this.nameOfPath}${save}/:imdbID`,
+      authorisationJWT,
+      VideoController.saveVideo,
+    );
+    router.delete(
+      `${this.nameOfPath}${deleteVideo}/:imdbID`,
+      authorisationJWT,
+      VideoController.deleteVideo,
+    );
     return router;
   }
 }

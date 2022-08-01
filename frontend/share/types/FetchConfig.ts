@@ -5,9 +5,10 @@ export type FetchConfig = {
   credentials?: any;
   headers?: {
     'Content-Type': string;
-    Accept?: string,
-  },
+    Accept?: string;
+    Authorization?: string;
+  };
   redirect?: any;
   referrerPolicy?: any;
   body?: any;
-}
+};

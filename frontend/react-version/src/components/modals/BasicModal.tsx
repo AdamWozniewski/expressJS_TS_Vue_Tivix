@@ -1,10 +1,14 @@
+import React from 'react';
 import { Modal } from 'antd';
 import { useSelector } from 'react-redux';
-import { modalDispatch, selectModal } from '../../store/reducers/utilitiesReducer';
+import {
+  modalDispatch,
+  selectModal,
+} from '../../store/reducers/utilitiesReducer';
 import { modals } from './modals';
 import { useUtilities } from '../../hooks/useUtilities';
 
-export function BasicModal () {
+export const BasicModal: React.FunctionComponent<any> = () => {
   const { dispatch } = useUtilities();
   const { visible, title, footer, onCancel, onOk } = useSelector(selectModal);
   const Component: any = modals.UserInformation;
@@ -21,5 +25,5 @@ export function BasicModal () {
     >
       <Component />
     </Modal>
-  )
-}
+  );
+};
