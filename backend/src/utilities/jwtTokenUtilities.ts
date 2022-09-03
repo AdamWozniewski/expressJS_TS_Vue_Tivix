@@ -1,7 +1,7 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { Request } from 'express';
 
-export const jwtTokenUtilities: JwtPayload | string = (req: Request) =>
+export const jwtTokenUtilities = (req: Request): JwtPayload | string =>
   jwt.verify(
     req.cookies.JWT || req.headers['authorization'].split(' ')[1],
     process.env.JWT_SECRET,

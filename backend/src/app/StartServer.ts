@@ -5,6 +5,7 @@ dotenv.config();
 import express, { Application, Request, Response } from 'express';
 // import socketIo ,{ Server as SocketIOServer } from 'socket.io';
 import mongoose, { Mongoose } from 'mongoose';
+import { engine } from 'express-handlebars';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 import { createServer, Server as HttpServer } from 'http';
@@ -13,7 +14,7 @@ import { IndexRoute } from '../routes/IndexRoute';
 import { Admin } from '../config/adminCreate';
 import dbConfig from './../config/database';
 import { setPassport } from '../config/passport';
-import { api } from '../static/values';
+import { ALLOW, api } from '../static/values';
 
 export class StartServer {
   private readonly app: Application;
@@ -30,13 +31,55 @@ export class StartServer {
     setPassport();
     this.setStaticConfig();
     this.startServer();
+    // Standardowa strona
+    this.setEngine();
+    // REST API
     this.setRouter();
+
     this.setDatabaseConnect();
     Admin.adminCreate();
   }
 
   private async setRouter() {
     this.app.use(api, await new IndexRoute().getRoutes());
+    this.app.get('/', (req, res) => {
+      res.render('post', {
+        listExists: true,
+        posts: [
+          {
+            author: 'Janith Kasun',
+            image: 'https://picsum.photos/500/500',
+            comments: [
+              'This is the first comment',
+              'This is the second comment',
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nec fermentum ligula. Sed vitae erat lectus.',
+            ],
+          },
+          {
+            author: 'John Doe',
+            image: 'https://picsum.photos/500/500?2',
+            comments: [],
+          },
+        ],
+      });
+    });
+  }
+
+  private setEngine() {
+    this.app.set('view engine', 'hbs');
+    this.app.set('views', './src/templates');
+    this.app.engine(
+      'hbs',
+      engine({
+        defaultLayout: 'index',
+        extname: '.hbs',
+        helpers: {
+          getShortText: (text: string) =>
+            text.length < 64 ? text : `${text.substring(0, 64)}...`,
+        },
+      }),
+    );
+    this.app.enable('view cache');
   }
 
   private setDatabaseConnect() {
@@ -76,7 +119,7 @@ export class StartServer {
       res.header(`${accessControlAllow}Methods`, '*');
       res.header(`${accessControlAllow}Headers`, 'Content-Type, Authorization');
 
-      if ('OPTIONS' == req.method) res.send(200);
+      if ('OPTIONS' == req.method) res.send(ALLOW);
       else next();
     });
     this.app.use(express.static(path.join(__dirname, '../../../dist/')));

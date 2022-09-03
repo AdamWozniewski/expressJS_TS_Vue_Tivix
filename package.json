@@ -1,5 +1,5 @@
 {
-  "name": "CMS-boilerplate",
+  "name": "cms-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,12 @@
     "install:backend": "npm --prefix ./backend install",
     "install:frontend-vue": "npm --prefix frontend/vue-version install",
     "install:frontend-react": "npm --prefix ./frontend/react-version install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run frontend:react ; npm run backend",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint {frontend,backend}/**/*.{js,jsx,ts,tsx,json}",
+    "lint:fix": "eslint --fix {frontend,backend}/**/*.{js,jsx,ts,tsx,json}",
+    "format": "prettier --write {frontend,backend}/**/*.{js,jsx,ts,tsx,css,md,json} --config .prettierrc",
+    "format:check": "prettier --check {frontend,backend}/**/*.{js,jsx,ts,tsx,css,md,json} --config .prettierrc"
   },
   "author": "AdamW",
   "license": "ISC",
@@ -21,6 +26,7 @@
   "devDependencies": {
     "autoprefixer": "^9",
     "eslint": "^7.25.0",
+    "express-handlebars": "^6.0.6",
     "http-proxy-middleware": "^2.0.1",
     "prettier": "^2.7.1",
     "typescript": "^4.7.4",

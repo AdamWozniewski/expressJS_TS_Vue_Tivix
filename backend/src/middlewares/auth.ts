@@ -1,5 +1,6 @@
 import { Response, Request } from 'express';
 import jwt from 'jsonwebtoken';
+import { FORBIDDEN, UNAUTHORIZED } from '../static/values';
 
 export const authorisationJWT = (
   req: Request,
@@ -7,9 +8,9 @@ export const authorisationJWT = (
   next: any,
 ): Response => {
   const token = req.headers['authorization'].split(' ')[1];
-  if (!token) return res.send(401).json({ unauthorized: true });
+  if (!token) return res.send(UNAUTHORIZED).json({ unauthorized: true });
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-    if (err) return res.send(403).json({ unknown: true });
+    if (err) return res.send(FORBIDDEN).json({ unknown: true });
     req.user = user;
     next();
   });

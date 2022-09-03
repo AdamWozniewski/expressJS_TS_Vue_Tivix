@@ -10,9 +10,11 @@ export const $http: AxiosInstance = axios.create({
   },
 });
 $http.interceptors.request.use((config: AxiosRequestConfig) => {
-  const token: string = JSON.parse(
-    <string>sessionStorage.getItem(AUTH) || <string>localStorage.getItem(AUTH),
-  ).token;
+  const { token }: { token: string } = JSON.parse(
+    (sessionStorage.getItem(AUTH) as string) ||
+      (localStorage.getItem(AUTH) as string),
+  );
+  // console.log(token);
   return {
     ...config,
     headers: {

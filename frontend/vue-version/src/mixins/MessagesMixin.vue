@@ -13,7 +13,7 @@ export default {
         type: 'error',
         message: error.message,
       });
-      if (error.response.status === 401) this.$router.push({ name: 'Login' });
+      if (error.response.status === UNAUTHORIZED) this.$router.push({ name: 'Login' });
     },
     successMessage(success: any) {
       this.$message({

@@ -1,9 +1,12 @@
 import $http from '@/axios/axios';
 
 const refresh = async (originalMethod: Function, args: any) =>
-  await $http.post(`/auth/refresh`)
+  await $http
+    .post(`/auth/refresh`)
     .then(async () => await originalMethod.apply(this, args))
-    .catch(error => { throw new Error(error) });
+    .catch((error) => {
+      throw new Error(error);
+    });
 
 export const RefreshToken = () => {
   return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
@@ -13,7 +16,7 @@ export const RefreshToken = () => {
         return await originalMethod.apply(this, args);
       } catch (error: any) {
         const response = error.response.status;
-        if (response === 401) return refresh(originalMethod, args);
+        if (response === UNAUTHORIZED) return refresh(originalMethod, args);
         else return error;
       }
     };

@@ -1,4 +1,5 @@
 import { $http } from '../axios/axios';
+import { UNAUTHORIZED } from '../static/staticValues';
 
 const refresh = async (originalMethod: Function, args: any) =>
   await $http
@@ -28,7 +29,7 @@ export const RefreshToken = () => {
         return await originalMethod.apply(this, args);
       } catch (error: any) {
         const response = error.response.status;
-        if (response === 401) return refresh(originalMethod, args);
+        if (response === UNAUTHORIZED) return refresh(originalMethod, args);
         else return error;
       }
     };

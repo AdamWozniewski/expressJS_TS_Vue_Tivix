@@ -1,3 +1,3 @@
-export const typesOfItems =  {
+export const typesOfItems: { [key: string]: string } = {
   typeA: 'typeA',
 };

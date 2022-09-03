@@ -8,7 +8,9 @@ const userReducer = createSlice({
   initialState: defaultUserState,
   reducers: {
     loginUser: (state: UserState, action: PayloadAction<any>) => {
-      const storage = action.payload.remember ? localStorage : sessionStorage;
+      const storage: Storage = action.payload.remember
+        ? localStorage
+        : sessionStorage;
       storage.setItem('auth', JSON.stringify(action.payload));
       return { ...state, user: action.payload };
     },
@@ -16,12 +18,10 @@ const userReducer = createSlice({
       localStorage.clear();
       sessionStorage.clear();
       return undefined;
-    }
-  }
+    },
+  },
 });
 
 export const { loginUser, logoutUser } = userReducer.actions;
-
 export const selectUser = (state: UtilitiesState) => state;
-
 export default userReducer.reducer;

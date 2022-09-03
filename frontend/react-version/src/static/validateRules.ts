@@ -1,1 +1,1 @@
-export const commonRules = [];
+export const commonRules: any[] = [];

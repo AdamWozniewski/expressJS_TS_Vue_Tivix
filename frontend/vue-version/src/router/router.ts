@@ -15,7 +15,8 @@ const routes: any = [
     redirect: {
       name: 'Home',
     },
-  }, {
+  },
+  {
     path: '/home',
     name: 'Home',
     component: Home,
@@ -26,29 +27,33 @@ const routes: any = [
     redirect: {
       name: 'VideoSearch',
     },
-    children: [{
-      name: 'VideoSearch',
-      path: 'video-search',
-      component: VideoSearch,
-    }, {
-      name: 'Account',
-      path: 'account',
-      component: Home,
-
-    }, {
-      name: 'Favourities',
-      path: 'favourities',
-      component: Favourities,
-    }, {
-      name: 'Admin',
-      path: 'admin',
-      component: Admin,
-      beforeEnter: (to: string, from: string, next: Function) => {
-        const data: any = store.state;
-        if (data.user.user.roles.includes('admin')) next();
-        next('/error-404');
+    children: [
+      {
+        name: 'VideoSearch',
+        path: 'video-search',
+        component: VideoSearch,
       },
-    }],
+      {
+        name: 'Account',
+        path: 'account',
+        component: Home,
+      },
+      {
+        name: 'Favourities',
+        path: 'favourities',
+        component: Favourities,
+      },
+      {
+        name: 'Admin',
+        path: 'admin',
+        component: Admin,
+        beforeEnter: (to: string, from: string, next: Function) => {
+          const data: any = store.state;
+          if (data.user.user.roles.includes('admin')) next();
+          next('/error-404');
+        },
+      },
+    ],
   },
   {
     path: '/login',

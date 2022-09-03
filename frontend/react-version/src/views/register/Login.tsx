@@ -27,6 +27,8 @@ export const Login: React.FunctionComponent<ILoginProps> = () => {
     await AuthService.login({
       email: 'asas@asfasf.pl',
       password: 'asfasfafafaf',
+      // email: 'admin@admin.admin',
+      // password: 'admin',
     })
       .then((data) => {
         dispatch(loginUser({ ...data, remember: values.remember }));

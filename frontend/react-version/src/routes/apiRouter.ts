@@ -3,4 +3,4 @@ export const apiRouter: { [key: string]: string } = {
   logout: '/logout',
   register: '/register',
   userInformation: '/user-information',
-};
+} as const;

@@ -3,7 +3,16 @@ import { Response, Request } from 'express';
 import User, { IUser } from '../../models/mongoose/User';
 import { jwtTokenUtilities, jwtSign } from '../../utilities/jwtTokenUtilities';
 import Access from '../../models/mongoose/Access';
-import { EXPIRES, MAX_AGE, JWT_REF, JWT } from '../../static/values';
+import {
+  EXPIRES,
+  MAX_AGE,
+  JWT_REF,
+  JWT,
+  UNAUTHORIZED,
+  FORBIDDEN,
+  ALLOW,
+  NOT_FOUND,
+} from '../../static/values';
 
 export class AuthController {
   static async register(req: Request, res: Response): Promise<any> {
@@ -13,23 +22,22 @@ export class AuthController {
       last_name,
       email,
       roles: ['user'],
-      videos: [],
     });
     try {
-      await User.register(user, password);
-      return res.sendStatus(200).send({ success: true });
+      await User.register(user, password).then();
+      return res.sendStatus(ALLOW).send({ success: true });
     } catch (error) {
-      return res.sendStatus(404).send({ success: false });
+      return res.sendStatus(NOT_FOUND).send({ success: false });
     }
   }
 
   static async refresh(req: Request, res: Response): Promise<any> {
     const refreshToken: string =
       req.cookies.JWT_REF || req.headers['authorization'].split(' ')[1];
-    if (!refreshToken) res.status(403).json({ unauthorized: true });
+    if (!refreshToken) res.status(FORBIDDEN).json({ unauthorized: true });
 
     const tokenExist: any = await Access.findOne({ refreshToken });
-    if (!tokenExist) res.status(401).json({ unauthorized: true });
+    if (!tokenExist) res.status(UNAUTHORIZED).json({ unauthorized: true });
 
     const { id }: any = jwt.verify(
       tokenExist.refreshToken,
@@ -38,13 +46,12 @@ export class AuthController {
     const accessToken = jwt.sign({ id }, process.env.JWT_SECRET, {
       expiresIn: EXPIRES,
     });
-
     return res
       .cookie(JWT, accessToken, {
         maxAge: EXPIRES,
         httpOnly: true,
       })
-      .status(200)
+      .status(ALLOW)
       .json({ accessToken });
   }
 
@@ -66,7 +73,7 @@ export class AuthController {
           maxAge: EXPIRES,
           httpOnly: true,
         });
-      return res.status(200).send({ token, refreshToken });
+      return res.status(ALLOW).send({ token, refreshToken });
     } catch (error) {
       throw error;
     }
@@ -77,25 +84,24 @@ export class AuthController {
       const refreshToken = req.cookies.JWT_REF;
       await Access.findOneAndDelete({ refreshToken });
       res.clearCookie(JWT).clearCookie(JWT_REF);
-      res.sendStatus(200).json({ success: 'User logged out!' });
+      res.sendStatus(ALLOW).json({ success: 'User logged out!' });
     } catch (error) {
       throw error;
     }
   }
 
   static async userInformation(req: Request, res: Response): Promise<any> {
-    const { id: _id } = await jwtTokenUtilities(req);
+    const { id: _id }: any = await jwtTokenUtilities(req);
     try {
       const data = await User.findOne({ _id }).select([
-        'videos',
         'roles',
         'first_name',
         'last_name',
         'email',
       ]);
-      return res.status(200).json({ data });
+      return res.status(ALLOW).json({ data });
     } catch (error: any) {
-      return res.status(403);
+      return res.status(FORBIDDEN);
     }
   }
 }

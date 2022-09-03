@@ -8,11 +8,9 @@ export default class UploadService {
     console.log(params);
     const { data } = await $http.post(`${staticUploadPart}/upload`, params, {
       headers: {
-        // Authorization: `Bearer ${authToken}`,
         'Content-Type': 'multipart/form-data',
       },
     });
-    // const { data } = await $https.post(`${staticUploadPart}/upload`, { params })
     return data;
   }
 }

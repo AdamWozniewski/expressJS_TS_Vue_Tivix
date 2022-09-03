@@ -1,8 +1,9 @@
 import { Response, Request } from 'express';
+import { NOT_FOUND } from '../static/values';
 
 export const notFound = (req: Request, res: Response, next): void => {
   const err: any = new Error('404 page not found');
-  err.status = 404;
+  err.status = NOT_FOUND;
   next(err);
 };
 

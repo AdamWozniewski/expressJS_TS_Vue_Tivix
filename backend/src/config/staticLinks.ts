@@ -1,9 +1,12 @@
-export const links = {
+type ILink = {
+  [key: string]: { [key: string]: string };
+};
+
+export const links: ILink = {
   endpointType: {
     admin: '/admin',
     auth: '/auth',
     file: '/file',
-    video: '/video',
     find: '/find',
     graphQL: '/graphQL',
   },
@@ -14,8 +17,8 @@ export const links = {
     logout: '/logout',
     userInformation: '/user-information',
     save: '/save',
-    getVideo: '/get-video',
+    getFile: '/get-file',
     upload: '/upload',
-    deleteVideo: '/deleteVideo',
+    deleteFile: '/delete-file',
   },
 } as const;
