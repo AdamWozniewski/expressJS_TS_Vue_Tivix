@@ -1,0 +1,15 @@
+0 silly argv {
+0 silly argv   _: [ 'bootstrap' ],
+0 silly argv   '--': [ '--legacy-peer-deps' ],
+0 silly argv   lernaVersion: '6.5.1',
+0 silly argv   '$0': 'C:\\Users\\Adam\\AppData\\Local\\npm-cache\\_npx\\d5cad42883f80c04\\node_modules\\lerna\\dist\\cli.js'
+0 silly argv }
+1 notice cli v6.5.1
+2 verbose rootPath E:\Projekty\JavaScript\_Vue_React_NodeJS
+3 error Error: Invalid package name "@shared-anywhere": name can only contain URL-friendly characters
+3 error     at invalidPackageName (C:\Users\Adam\AppData\Local\npm-cache\_npx\d5cad42883f80c04\node_modules\npm-package-arg\npa.js:89:15)
+3 error     at Result.setName (C:\Users\Adam\AppData\Local\npm-cache\_npx\d5cad42883f80c04\node_modules\npm-package-arg\npa.js:124:11)
+3 error     at new Result (C:\Users\Adam\AppData\Local\npm-cache\_npx\d5cad42883f80c04\node_modules\npm-package-arg\npa.js:114:23)
+3 error     at Function.resolve (C:\Users\Adam\AppData\Local\npm-cache\_npx\d5cad42883f80c04\node_modules\npm-package-arg\npa.js:61:15)
+3 error     at new Package (C:\Users\Adam\AppData\Local\npm-cache\_npx\d5cad42883f80c04\node_modules\lerna\dist\cli.js:862:58)
+3 error     at C:\Users\Adam\AppData\Local\npm-cache\_npx\d5cad42883f80c04\node_modules\lerna\dist\cli.js:1375:28

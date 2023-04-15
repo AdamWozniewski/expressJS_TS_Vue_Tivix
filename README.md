@@ -14,9 +14,10 @@ Wykorzystane technologie:
 * Mongoose
 * GraphQL
 * SocketIO
+* Lerna
 ---
 Całość da się uruchomić za pomocą *Docker'a*
-Projekt posiada także wersje językowe po stronie front-endu. Zarówno dla Wersji **Vue**, **React**, oraz panelu *Admin* w **Angular** 
+Projekt posiada także wersje językowe po stronie front-endu. Zarówno dla Wersji, **React**
 
 **Install node_modules**
 

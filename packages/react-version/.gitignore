@@ -1,18 +1,18 @@
-node_modules
-package-lock.json
+../../node_modules
+/node_modules
 /**/node_modules
+package-lock.json
 /**/package-lock.json
-
-/packages/**/savedFiles
-/packages/**/dist
-/packages/**/node_modules
-/packages/**/package-lock.json
+/packages/backend/dist
+/packages/backend/savedFiles
+/packages/backend/node_modules
 
 .DS_Store
 /dist
 
 /test/e2e/videos/
 /test/e2e/screenshots/
+/frontend/react_version
 # local env files
 .env.local
 .env.*.local
