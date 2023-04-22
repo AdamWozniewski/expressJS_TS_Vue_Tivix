@@ -30,7 +30,7 @@ export const Login: React.FunctionComponent<ILoginProps> = () => {
       // email: 'admin@admin.admin',
       // password: 'admin',
     })
-      .then((data) => {
+      .then(data => {
         dispatch(loginUser({ ...data, remember: values.remember }));
         dispatch(
           notificationDispatch({

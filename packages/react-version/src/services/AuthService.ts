@@ -1,6 +1,6 @@
 import { $http } from '../axios/axios';
 import { RefreshToken } from '../decorators/RefreshDecorator';
-import { apiRouter } from '../routes/apiRouter';
+import { apiRouter } from '../static/apiRouter';
 
 const staticAuthPart: string = '/auth';
 const { logout, login, register, userInformation } = apiRouter;

@@ -28,9 +28,7 @@ const tailFormItemLayout = {
 };
 
 type IRegistrationFormProps = {};
-export const RegistrationForm: React.FunctionComponent<
-  IRegistrationFormProps
-> = () => {
+export const Register: React.FunctionComponent<IRegistrationFormProps> = () => {
   const [form] = Form.useForm();
   const { dispatch } = useUtilities();
   const register = async (values: any) => {

@@ -7,8 +7,6 @@ import { useUtilities } from '../../hooks/useUtilities';
 import { logoutUser } from '../../store/reducers/userReducer';
 import AuthService from '../../services/AuthService';
 import '../../i18n';
-import { EditProfile } from '../editProfile/EditProfile';
-import { Login } from '../register/Login';
 
 type IAppProps = {};
 export const App: React.FunctionComponent<IAppProps> = props => {
@@ -20,7 +18,6 @@ export const App: React.FunctionComponent<IAppProps> = props => {
   };
   const logoutUserFromApp = async () =>
     await AuthService.logout().then(() => dispatch(logoutUser()));
-  console.log(i18n.language);
   const changeLang = (lang: string) =>
     i18n.changeLanguage(lang).then(() => {
       console.log(i18n.language);
@@ -44,11 +41,11 @@ export const App: React.FunctionComponent<IAppProps> = props => {
             </li>
           </ul>
         </nav>
-        <SwitchRouting language={i18n.language} />
-        <BasicModal />
-        <EditProfile />
         <hr />
-        <Login />
+        <h3>Tu jest Routing</h3>
+        <SwitchRouting language={i18n.language} />
+        <hr />
+        <BasicModal />
       </>
     </div>
   );

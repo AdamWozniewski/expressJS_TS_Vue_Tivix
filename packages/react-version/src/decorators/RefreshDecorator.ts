@@ -1,23 +1,26 @@
 import { $http } from '../axios/axios';
 import { UNAUTHORIZED } from '../static/staticValues';
 
+const AUTH: string = 'auth';
+const refreshUrl: string = `/${AUTH}/refresh`;
+const BEARER: string = 'Bearer';
 const refresh = async (originalMethod: Function, args: any) =>
   await $http
     .post(
-      `/auth/refresh`,
+      refreshUrl,
       {},
       {
         headers: {
-          Authorization: `Bearer ${() =>
+          Authorization: `${BEARER} ${() =>
             JSON.parse(
-              <string>sessionStorage.getItem('auth') ||
-                <string>localStorage.getItem('auth'),
+              (sessionStorage.getItem(AUTH) as string) ||
+                (localStorage.getItem(AUTH) as string),
             ).refreshToken}`,
         },
       },
     )
     .then(async () => await originalMethod.apply(this, args))
-    .catch((error) => {
+    .catch(error => {
       throw new Error(error);
     });
 

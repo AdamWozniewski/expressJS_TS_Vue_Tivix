@@ -1,15 +1,15 @@
 import { $http } from '../axios/axios';
 import { RefreshToken } from '../decorators/RefreshDecorator';
-// import { RefreshToken } from '@cms/shared-anywhere/RefreshToken';
 
-const staticUploadPart = '/file';
+const staticUploadPart = '/file/upload';
+const staticHeaders = {
+  'Content-Type': 'multipart/form-data',
+};
 export default class UploadService {
   @RefreshToken()
   static async uploadFile(params: any): Promise<object> {
-    const { data } = await $http.post(`${staticUploadPart}/upload`, params, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+    const { data } = await $http.post(`${staticUploadPart}`, params, {
+      headers: staticHeaders,
     });
     return data;
   }

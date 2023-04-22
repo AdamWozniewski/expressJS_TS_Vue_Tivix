@@ -11,7 +11,7 @@ export const links: ILink = {
     graphQL: '/graphQL',
   },
   actions: {
-    register: '/register',
+    register: '/Register',
     refresh: '/refresh',
     login: '/login',
     logout: '/logout',

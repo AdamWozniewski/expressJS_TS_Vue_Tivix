@@ -1,4 +1,8 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosInstance,
+  AxiosRequestConfig,
+  InternalAxiosRequestConfig,
+} from 'axios';
 import { AUTH, baseURL } from '../static/staticValues';
 
 const BEARER: string = 'Bearer';
@@ -9,7 +13,7 @@ export const $http: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
 });
-$http.interceptors.request.use((config: AxiosRequestConfig) => {
+$http.interceptors.request.use((config: InternalAxiosRequestConfig | any) => {
   const { token }: { token: string } = JSON.parse(
     (sessionStorage.getItem(AUTH) as string) ||
       (localStorage.getItem(AUTH) as string),

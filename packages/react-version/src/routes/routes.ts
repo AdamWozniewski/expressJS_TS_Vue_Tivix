@@ -1,21 +1,22 @@
-import { Login } from '../views/register/Login';
-import { RegistrationForm } from '../views/register/Register';
+import { Login } from '../views/Register/Login';
+import { Register } from '../views/Register/Register';
 import { Home } from '../views/HomePage';
-import { Secret } from '../views/secret/Secret';
+import { Secret } from '../views/Secret/Secret';
+import { EditProfile } from '../views/EditProfile/EditProfile';
+import { WildCard } from '../views/WildCard';
 
 export const routes: any = {
-  logged: {
-    path: '/',
+  dashboard: {
+    path: '/dashboard',
+    component: Home,
     children: [
       {
-        path: '/',
-        exact: true,
-        component: Home,
+        path: '/edit-profile',
+        component: EditProfile,
       },
       {
-        path: '/secret',
+        path: '/Secret',
         admin: true,
-        exact: true,
         component: Secret,
       },
     ],
@@ -25,15 +26,16 @@ export const routes: any = {
     children: [
       {
         path: '/login',
-        exact: true,
         component: Login,
       },
       {
         path: '/registration',
-        exact: true,
-        component: RegistrationForm,
+        component: Register,
       },
     ],
   },
-  wildcards: '*',
+  wildcards: {
+    component: WildCard,
+    path: '*',
+  },
 };

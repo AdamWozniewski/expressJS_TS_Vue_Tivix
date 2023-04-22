@@ -1,74 +1,36 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { Route, Routes, Navigate } from 'react-router-dom';
-// import { RouterRender } from './RouterRender';
 import { Home } from '../views/HomePage';
-// import { Secret } from '../views/secret/Secret';
 import { WildCard } from '../views/WildCard';
-// import { Login } from '../views/register/Login';
-// import { RegistrationForm } from '../views/register/Register';
-import { Layout } from '../views/Layout';
+import { Login } from '../views/Register/Login';
+import { Register } from '../views/Register/Register';
+import { routes } from './routes';
+import { EditProfile } from '../views/EditProfile/EditProfile';
+import { Secret } from '../views/Secret/Secret';
 
 type ISwitchRoutingProps = {
   language: string;
 };
 export const SwitchRouting: FC<ISwitchRoutingProps> = () => {
-  const IS_LOGGED = useSelector((state: any) => state.user);
-  console.log(IS_LOGGED);
+  // const IS_LOGGED: boolean = useSelector((state: any) => state.user);
+  const IS_LOGGED: boolean = true;
   const IS_ADMIN: boolean = true;
-  const routes = {
-    logged: {
-      path: '/',
-      children: [
-        {
-          path: '/',
-          exact: true,
-          // component: Home,
-        },
-        {
-          path: '/secret',
-          admin: true,
-          exact: true,
-          // component: Secret,
-        },
-      ],
-    },
-    auth: {
-      path: '/auth',
-      children: [
-        {
-          path: '/login',
-          exact: true,
-          // component: Login
-        },
-        {
-          path: '/registration',
-          exact: true,
-          // component: RegistrationForm
-        },
-      ],
-    },
-    wildcards: '*',
-  };
+
   return (
     <Routes>
-      {/*<Route path={'/'} element={<Layout />}>*/}
-      <Route path={'/'} element={<Navigate replace to={`/:lang(en|fr)`} />}>
-        {/*  {!IS_LOGGED ? <RouterRender path={routes.auth} element />*/}
-        {/*    : (*/}
-        {/*      <>*/}
-        {/*        <Route path='/' render={({ match: { url } }) => (*/}
-        {/*          <>*/}
-        {/*            <Route exact path='/' component={ Home }/>*/}
-        {/*            { IS_ADMIN && <Route exact path='/secret' component={ Secret } /> }*/}
-        {/*          </>*/}
-        {/*        )} />*/}
-        {/*      </>*/}
-        {/*    )*/}
-        {/*  }*/}
-        <Route path="/" element={<Home />} />
-        <Route path={routes.wildcards} element={<WildCard />} />
+      <Route
+        path={'/'}
+        index
+        element={<Navigate to={IS_LOGGED ? `/dashboard` : '/auth/login'} />}
+      />
+      <Route path="/auth/login" element={<Login />} />
+      <Route path="/auth/registration" element={<Register />} />
+      <Route path="/dashboard" element={<Home />}>
+        <Route path="/dashboard/edit-profile" element={<EditProfile />} />
+        {IS_ADMIN && <Route path="/dashboard/secret" element={<Secret />} />}
       </Route>
+      <Route path={routes.wildcards.path} element={<WildCard />} />
     </Routes>
   );
 };
